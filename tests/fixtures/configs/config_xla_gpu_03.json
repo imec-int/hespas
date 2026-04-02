@@ -1,0 +1,17 @@
+{
+  "mlir_file": "tests/fixtures/mlir/jax_example.mlir",
+  "split_strategy": "linear_split",
+  "perf_estimator": {
+      "method": "xla",
+      "hardware": {
+          "type": "nvidiagpu",
+          "num_npus": 4,
+          "sample": false,
+          "translate": {
+            "target-backends" : "cuda"
+          },
+          "in_memory_only_cache": true
+      }
+  },
+  "output_dir": "output/basic/xla_gpu-03"
+}

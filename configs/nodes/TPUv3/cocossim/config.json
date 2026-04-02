@@ -1,0 +1,13 @@
+{
+    "perf_estimator": {
+        "method": "cocossim",
+        "hardware": {
+            "roofline": {
+                "peak_flops": 63.3e12,
+                "memory_bandwidth": 429.2e9
+            },
+            "chips": 1,
+            "frequency": 0.94
+        }
+    }
+}

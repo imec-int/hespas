@@ -1,0 +1,31 @@
+{
+    "perf_estimator": {
+        "method": "roofline",
+        "hardware": {
+            "peak_flops": 34e12,
+            "per_datatype_flops": {
+                "f64": 34e12,
+                "f32": 67e12,
+                "i32": 67e12,
+                "si32": 67e12,
+                "ui32": 67e12,
+                "tf32": 494.5e12,
+                "bf16": 989.5e12,
+                "f16": 989.5e12,
+                "f8E8M0FNU": 1979e12,
+                "f8E3M4": 1979e12,
+                "f8E4M3": 1979e12,
+                "f8E4M3FN": 1979e12,
+                "f8E4M3FNUZ": 1979e12,
+                "f8E4M3B11FNUZ": 1979e12,
+                "f8E5M2": 1979e12,
+                "f8E5M2FNUZ": 1979e12,
+                "i8": 1979e12,
+                "si8": 1979e12,
+                "ui8": 1979e12,
+                "i1": 1979e12
+            },
+            "memory_bandwidth": 3350e9
+        }
+    }
+}

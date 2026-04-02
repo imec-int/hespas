@@ -1,0 +1,15 @@
+{
+  "mlir_file": "tests/fixtures/mlir/jax_example.mlir",
+  "split_strategy": "linear_split",
+  "clean": true,
+  "perf_estimator": {
+      "method": "roofline",
+      "hardware": {
+          "peak_flops": 312e12,
+          "memory_bandwidth": 1935e9,
+          "num_npus": 64,
+          "in_memory_only_cache": true
+      }
+  },
+  "output_dir": "output/basic/roofline_a100"
+}

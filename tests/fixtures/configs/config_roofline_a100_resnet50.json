@@ -1,0 +1,16 @@
+{
+  "mlir_file": "tests/fixtures/mlir/resnet_50_train_step_4_devices_1024_batch.mlir",
+  "split_strategy": "linear_split",
+  "perf_estimator": {
+      "method": "roofline",
+      "hardware": {
+          "peak_flops": 312e12,
+          "memory_bandwidth": 1935e9,
+          "num_npus": 4,
+          "tdp_W": 1600,
+          "hbm_power_ratio": 0.25,
+          "in_memory_only_cache": true
+      }
+  },
+  "output_dir": "output/resnet50/roofline_a100"
+  }

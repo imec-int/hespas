@@ -1,0 +1,22 @@
+{
+  "mlir_file": "tests/fixtures/mlir/jax_example.mlir",
+  "split_strategy": "linear_split",
+  "perf_estimator": {
+      "method": "iree",
+      "hardware": {
+          "num_npus": 64,
+          "sample": true,
+          "compile": {
+            "device": "local-task",
+            "target-backends" : "llvm-cpu",
+            "extra-args": [
+              "--iree-llvmcpu-target-cpu=host"
+            ],
+            "extra-runtime-args": [
+            ]
+          },
+          "in_memory_only_cache": true
+      }
+  },
+  "output_dir": "output/basic/iree_x86_64"
+}

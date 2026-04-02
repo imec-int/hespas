@@ -1,0 +1,6 @@
+system,workload,runtime_s,source
+8xTPUv3,llama3-100m,0.20,reference
+8xTPUv3,llama3-200m,0.39,reference
+8xTPUv3,llama3-500m,0.90,reference
+8xTPUv3,llama3-1b,1.84,reference
+8xTPUv3,llama3-2b,3.14,reference

@@ -1,0 +1,9 @@
+{
+    "perf_estimator": {
+        "method": "roofline",
+        "hardware": {
+            "peak_flops": 63.3e12,
+            "memory_bandwidth": 429.2e9
+        }
+    }
+}

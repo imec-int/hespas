@@ -1,0 +1,18 @@
+- name: Gemm
+  spatial_mapping:
+    D1: ["M, 128"]
+    D2: ["N, 128"]
+  memory_operand_links:
+    O: O
+    W: I2
+    I: I1
+
+
+- name: default
+  spatial_mapping:
+    D1: ["M, 128"]
+    D2: ["N, 128"]
+  memory_operand_links:
+    O: O
+    W: I2
+    I: I1

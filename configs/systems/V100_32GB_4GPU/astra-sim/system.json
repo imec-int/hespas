@@ -1,0 +1,22 @@
+{
+    "trace-enabled": 1,
+    "local-mem-bw": 898,
+    "endpoint-delay": 1,
+    "scheduling-policy": "LIFO",
+    "active-chunks-per-dimension": 1,
+    "collective-optimization": "localBWAware",
+    "boost-mode": 0,
+    "preferred-dataset-splits": 1,
+    "reduce-scatter-implementation": [
+        "ring"
+    ],
+    "all-reduce-implementation": [
+        "ring"
+    ],
+    "all-gather-implementation": [
+        "ring"
+    ],
+    "all-to-all-implementation": [
+        "ring"
+    ]
+}

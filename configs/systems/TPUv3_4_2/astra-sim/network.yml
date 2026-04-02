@@ -1,0 +1,12 @@
+bandwidth:
+- 82.0
+- 5000.0
+latency:
+- 1.0
+- 1.0
+npus_count:
+- 4
+- 2
+topology:
+- Ring
+- Ring

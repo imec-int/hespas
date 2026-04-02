@@ -1,0 +1,6 @@
+system,workload,runtime_s,source
+A100_40GB_4GPU,resnet18,0.04,reference
+A100_40GB_4GPU,resnet34,0.06,reference
+A100_40GB_4GPU,resnet50,0.10,reference
+A100_40GB_4GPU,resnet101,0.16,reference
+A100_40GB_4GPU,resnet200,0.32,reference

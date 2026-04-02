@@ -1,0 +1,20 @@
+{
+    "mlir_file": "../resnet/roofline/workloads/resnet50.mlir",
+    "split_strategy": "individual_split",
+    "clean": false,
+    "perf_estimator": {
+        "method": "onnxim",
+        "hardware": {
+            "num_npus": 1,
+            "binary_path": "Simulator",
+            "device_path": "systolic_ws_128x128_tpuv3_1core.json",
+            "in_memory_only_cache": true,
+            "frequency": 940000000,
+            "roofline": {
+                "peak_flops": 30000000000000.0,
+                "memory_bandwidth": 34000000000.0
+            }
+        }
+    },
+    "output_dir":"output"
+}

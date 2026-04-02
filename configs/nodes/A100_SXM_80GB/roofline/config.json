@@ -1,0 +1,23 @@
+{
+    "perf_estimator": {
+        "method": "roofline",
+        "hardware": {
+            "peak_flops": 9.7e12,
+            "per_datatype_flops": {
+                "f64": 19.5e12,
+                "f32": 19.5e12,
+                "i32": 19.5e12,
+                "si32": 19.5e12,
+                "ui32": 19.5e12,
+                "tf32": 156e12,
+                "bf16": 312e12,
+                "f16": 312e12,
+                "i8": 624e12,
+                "si8": 624e12,
+                "ui8": 624e12,
+                "i1": 624e12
+            },
+            "memory_bandwidth": 2039e9
+        }
+    }
+}

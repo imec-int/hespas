@@ -1,0 +1,86 @@
+name: tpu_v3_like
+
+memories:
+  rf_bf16:
+    size: 4096
+    r_cost: 0.05
+    w_cost: 0.05
+    area: 0
+    latency: 1
+    operands: [I1, I2, O]
+    ports:
+      - name: r_port_1
+        type: read
+        bandwidth_min: 4096
+        bandwidth_max: 4096
+        allocation:
+          - I1, tl # to MAC
+          - I2, tl
+          - O, tl
+          - O, th # to SRAM
+      - name: w_port_1
+        type: write
+        bandwidth_min: 2048
+        bandwidth_max: 2048
+        allocation:
+          - O, fh # from SRAM
+          - I1, fh
+          - I2, fh
+          - O, fl
+    served_dimensions: []
+
+  sram_32MB:
+    size: 33554432
+    r_cost: 4.0
+    w_cost: 4.0
+    area: 1.0
+    latency: 1
+    operands: [I1, I2, O]
+    ports:
+      - name: r_port_1
+        type: read
+        bandwidth_min: 8192
+        bandwidth_max: 8192 
+        allocation:
+          - I1, tl   # SRAM -> RF
+          - I2, tl   # SRAM -> RF
+          - O, tl   # <-- add (reload PSUMs to RF)
+          - O, th   # SRAM -> DRAM
+      - name: w_port_1
+        type: write
+        bandwidth_min: 8192
+        bandwidth_max: 8192
+        allocation:
+          - I1, fh   # DRAM -> SRAM
+          - I2, fh   # DRAM -> SRAM
+          - O, fl    # RF   -> SRAM
+          - O, fh    # <-- optional (DRAM -> SRAM init)
+    served_dimensions: [D1, D2]
+
+  dram:
+    size: 17179869184
+    r_cost: 700
+    w_cost: 700
+    area: 10.0
+    latency: 1
+    operands: [I1, I2, O]
+    ports:
+      - name: rw_port_1
+        type: read_write
+        bandwidth_min: 7200 #bits/cc
+        bandwidth_max: 7200
+        allocation:
+          - I1, tl
+          - I2, tl
+          - O, tl
+          - I1, fl
+          - I2, fl
+          - O, fl
+    served_dimensions: [D1, D2]
+
+operational_array:
+  dimensions: [D1, D2]
+  sizes: [128, 128]
+  unit_area: 1
+  unit_energy: 0.0
+

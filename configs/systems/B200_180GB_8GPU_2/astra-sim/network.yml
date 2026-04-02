@@ -1,0 +1,12 @@
+bandwidth:
+- 900.0
+- 150
+latency:
+- 999.9999999999999
+- 999.9999999999999
+npus_count:
+- 8
+- 2
+topology:
+- Switch
+- Switch

@@ -1,0 +1,81 @@
+[project]
+name = "hespas"
+version = "0.1.0"
+authors = [
+    {name="imec"}
+]
+description = "Hespas Simulator."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "chakra @ git+https://github.com/imec-int/chakra.git",
+    "graphviz",
+    "jax",
+    "networkx",
+    "pydot",
+    "tqdm",
+    "pyyaml",
+    "psutil",
+    "pandas",
+    "matplotlib"
+]
+
+[project.urls]
+Homepage = "https://github.com/pypa/sampleproject"
+Issues = "https://github.com/pypa/sampleproject/issues"
+
+[dependency-groups]
+dev = [
+    "myst-parser>=4.0.1",
+    "pytest>=8.4.1",
+    "sphinx>=8.1.3",
+    "sphinx-rtd-theme>=3.0.2",
+    "sphinxcontrib-bibtex>=2.6.5",
+    "esbonio"
+]
+
+[project.optional-dependencies]
+iree = [
+    "iree-base-compiler",
+    "iree-base-runtime"
+]
+
+stablehlo_to_onnx = [
+    "onnxruntime",
+    "jax2onnx",
+    "onnx-ir",
+    "numpy"
+]
+
+zigzag_onnx = [
+    "zigzag-dse @ git+https://github.com/KULeuven-MICAS/zigzag.git",
+    "onnxruntime",
+    "jax2onnx",
+    "onnx-ir",
+    "numpy"
+]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+hespas_mlir_analyzer = "hespas.mlir_parser.mlir_analyzer:main"
+hespas_mlir_splitter = "hespas.mlir_parser.mlir_splitter:main"
+hespas_chakra_gen = "hespas.hespas_chakra_gen:main"
+hespas_stablehlo_to_onnx = "hespas.stablehlo_to_onnx.__main__:main"
+
+[tool.pytest.ini_options]
+markers = [
+    "slow",
+    "xla",
+    "iree",
+    "cocossim",
+    "onnxim",
+    "zigzag_onnx",
+    "stablehlo_to_onnx"
+]

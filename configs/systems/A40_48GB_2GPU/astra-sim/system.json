@@ -1,0 +1,16 @@
+{
+    "trace-enabled": 1,
+    "local-mem-bw": 696.0,
+    "all-to-all-implementation": [
+        "direct"
+    ],
+    "all-gather-implementation": [
+        "direct"
+    ],
+    "reduce-scatter-implementation": [
+        "direct"
+    ],
+    "all-reduce-implementation": [
+        "direct"
+    ]
+}

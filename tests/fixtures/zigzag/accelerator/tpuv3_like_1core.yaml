@@ -1,0 +1,101 @@
+# TPU v3-like hardware configuration for ZigZag
+# Systolic array with 128x128 MACs
+# On-chip memories: 4KB RF (bf16), 32MB SRAM/chip, per vector unit it's 16MiB
+# Off-chip memory: 16GB DRAM/core
+# Vector unit peak flops: 2 TFLOPs/cycle
+# Systolic array peak flops: 32 TFLOPs/cycle
+# clock frequency: 940MHz
+
+# references: 
+# https://dl.acm.org/doi/pdf/10.1145/3360307
+# https://github.com/jax-ml/jax/discussions/19927
+# https://arxiv.org/pdf/2304.01433
+
+name: tpuv3_like_1core
+
+memories:
+  # Register File (RF) with bf32 precision
+  rf_bf32:
+    size: 32 # 32 bits
+    r_cost: 0.05
+    w_cost: 0.05
+    area: 0
+    latency: 1
+    operands: [I1, I2, O]
+    ports:
+      - name: r_port_1
+        type: read
+        bandwidth_min: 32
+        bandwidth_max: 32
+        allocation:
+          - I1, tl # to MAC
+          - I2, tl
+          - O, tl
+          - O, th # to SRAM
+      - name: w_port_1
+        type: write
+        bandwidth_min: 32
+        bandwidth_max: 32
+        allocation:
+          - O, fh # from SRAM
+          - I1, fh
+          - I2, fh
+          - O, fl
+    served_dimensions: []
+
+  # total 32MB SRAM per chip, 16MB per vector unit
+  sram_16MB:
+    size: 134217728
+    r_cost: 4.0
+    w_cost: 4.0
+    area: 1.0
+    latency: 1
+    operands: [I1, I2, O]
+    ports:
+      - name: r_port_1
+        type: read
+        bandwidth_min: 8192
+        bandwidth_max: 8192 
+        allocation:
+          - I1, tl   # SRAM -> RF
+          - I2, tl   # SRAM -> RF
+          - O, tl   # <-- add (reload PSUMs to RF)
+          - O, th   # SRAM -> DRAM
+      - name: w_port_1
+        type: write
+        bandwidth_min: 8192
+        bandwidth_max: 8192
+        allocation:
+          - I1, fh   # DRAM -> SRAM
+          - I2, fh   # DRAM -> SRAM
+          - O, fl    # RF   -> SRAM
+          - O, fh    # <-- optional (DRAM -> SRAM init)
+    served_dimensions: [D1, D2]
+
+  # 16GB DRAM per core however llama models might not fit hence keeping it large
+  dram:
+    size: 137438953472
+    r_cost: 700
+    w_cost: 700
+    area: 10.0
+    latency: 1
+    operands: [I1, I2, O]
+    ports:
+      - name: rw_port_1
+        type: read_write
+        bandwidth_min: 7200 #bits/cc
+        bandwidth_max: 7200
+        allocation:
+          - I1, tl
+          - I2, tl
+          - O, tl
+          - I1, fl
+          - I2, fl
+          - O, fl
+    served_dimensions: [D1, D2]
+
+operational_array:
+  dimensions: [D1, D2]
+  sizes: [128, 128]
+  unit_area: 1
+  unit_energy: 0.0
