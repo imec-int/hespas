@@ -1,0 +1,69 @@
+name: Build and Deploy Documentation
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  docs:
+    runs-on: [self-hosted, Linux, X64]
+    environment: svedas16_env
+    container:
+      image: ubuntu:latest
+
+    steps:
+    - name: Install system dependencies
+      run: |
+        apt-get update
+        apt-get install -y curl git python3 python3-pip openssh-client
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Setup SSH for dependency cloning
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.USER_PRIVATE_KEY_ED }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+      shell: bash
+
+    - name: Install uv and dependencies
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        export PATH="$HOME/.local/bin:$PATH"
+        export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
+        uv sync
+
+    - name: Build documentation
+      run: |
+        export PATH="$HOME/.local/bin:$PATH"
+        export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
+        # Install docs dependencies
+        uv pip install -r docs/requirements.txt
+        # Build the docs
+        uv run sphinx-build docs _build/html
+
+    - name: GitHub context
+      run: |
+        echo "Event name: ${{ github.event_name }}"
+        echo "Ref: ${{ github.ref }}"
+        echo "Branch: ${{ github.ref_name }}"
+        ls -la _build/html/ | head -10
+
+    - name: Deploy to GitHub Pages (using peaceiris action)
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: _build/html
+        force_orphan: true  # Remove the separate deploy job since we're doing it inline

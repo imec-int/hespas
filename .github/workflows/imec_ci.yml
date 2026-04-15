@@ -1,0 +1,49 @@
+name: HESPAS_WORKLOAD IMEC CLUSTER CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  imec_ci_run:
+    runs-on: [self-hosted, Linux, X64]
+    environment: svedas16_env
+    container:
+      image: ubuntu:latest
+
+    steps:
+    - name: Install system dependencies
+      run: |
+        apt-get update
+        apt-get install -y curl git python3 python3-pip openssh-client
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Setup SSH for dependency cloning
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.USER_PRIVATE_KEY_ED }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+      shell: bash
+
+    - name: Install uv and deps
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        export PATH="$HOME/.local/bin:$PATH"
+        export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
+        uv sync --extra iree --extra zigzag_onnx
+
+        #- name: Setup SSH debugging
+        #  uses: mxschmitt/action-tmate@v3
+
+    - name: Run Tests
+      run: |
+        export PATH="$HOME/.local/bin:$PATH"
+        export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
+        uv run pytest tests -v
