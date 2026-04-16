@@ -34,8 +34,6 @@ Use `stablehlo_ops_to_onnx_model()` when you need an in-memory `onnx.ModelProto`
 Use `stablehlo_ops_to_onnx_file()` when you want the translated model written directly
 to disk.
 """
-# Copyright (c) 2026 imec
-# SPDX-License-Identifier: MIT
 
 from typing import Any, Sequence
 

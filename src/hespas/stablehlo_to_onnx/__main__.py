@@ -1,6 +1,6 @@
-"""CLI entry point for StableHLO to ONNX translation."""
 # Copyright (c) 2026 imec
 # SPDX-License-Identifier: MIT
+"""CLI entry point for StableHLO to ONNX translation."""
 
 import argparse
 from pathlib import Path

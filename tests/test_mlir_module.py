@@ -8,8 +8,6 @@ This module contains comprehensive tests for the MLIRModule wrapper class,
 testing all functionality including creation, serialization, file I/O, and
 property access.
 """
-# Copyright (c) 2026 imec
-# SPDX-License-Identifier: MIT
 
 import pytest
 import tempfile

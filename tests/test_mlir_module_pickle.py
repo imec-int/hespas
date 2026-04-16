@@ -6,8 +6,6 @@ Unit tests for MLIRModule pickle support.
 This module tests the serialization and deserialization capabilities
 of MLIRModule objects using Python's pickle module.
 """
-# Copyright (c) 2026 imec
-# SPDX-License-Identifier: MIT
 
 import pickle
 import tempfile

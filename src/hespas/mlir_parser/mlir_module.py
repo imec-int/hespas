@@ -7,8 +7,6 @@ This module provides a convenient object-oriented interface for working with
 MLIR modules that have been split from a larger module, along with their
 associated metadata.
 """
-# Copyright (c) 2026 imec
-# SPDX-License-Identifier: MIT
 import hashlib
 import json
 import os
