@@ -65,6 +65,11 @@ hespas_chakra_gen configs/nodes/A100_PCIe_40GB/roofline/config.json \
 >
 > [arXiv:2604.12090](https://arxiv.org/abs/2604.12090)
 
+
+## Acknowledgments
+
+This work is funded by the Advanced Research + Invention Agency (ARIA).
+
 ## License
 
 [MIT](LICENSE) — © imec
