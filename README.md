@@ -66,6 +66,16 @@ hespas_chakra_gen configs/nodes/A100_PCIe_40GB/roofline/config.json \
 >
 > [arXiv:2604.12090](https://arxiv.org/abs/2604.12090)
 
+```bibtex
+@inproceedings{svedas2026stablehlo,
+  title     = {Evaluating Cross-Architecture Performance Modeling of Distributed ML Workloads Using StableHLO},
+  author    = {Svedas, Jonas and Laubeuf, Nathan and Harvey, Ryan and Singh, Arjun and Man, Changhai and Nada, Abubakr and Krishna, Tushar and Myers, James and Bhattacharjee, Debjyoti},
+  year      = {2026},
+  booktitle = {Proceedings of ISPASS 2026},
+  organization = {IEEE}
+}
+```
+
 
 ## Acknowledgments
 
