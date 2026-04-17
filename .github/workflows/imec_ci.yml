@@ -8,6 +8,7 @@ on:
 
 jobs:
   imec_ci_run:
+    if: github.server_url == 'https://github.imec.be'
     runs-on: [self-hosted, Linux, X64]
     environment: svedas16_env
     container:
