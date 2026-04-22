@@ -9,9 +9,9 @@ profiling-based (XLA) estimators and then fed into a network simulator to produc
 end-to-end distributed training time estimates.
 
 1. `Obtaining the Workload`_ — get a StableHLO workload
-2. `Analytical Estimation`_ — estimate compute performance analytically
-3. `XLA Profiling Estimation`_ — estimate compute performance on real hardware
-4. `Reference Run (Ground-Truth)`_ — run a reference directly through XLA
+2. `Reference Run (Ground-Truth)`_ — run a reference directly through XLA
+3. `Analytical Estimation`_ — estimate compute performance analytically
+4. `XLA Profiling Estimation`_ — estimate compute performance on real hardware
 5. `Network Simulation with ASTRA-sim`_ — simulate distributed execution
 
 Prerequisites
@@ -277,6 +277,50 @@ or that would interfere with the communication structure. The output file
 ``compiled_trainstep.spmd.opt.mlir`` can then be used in place of the
 unoptimized ``.mlir`` in subsequent Hespas commands.
 
+Reference Run (Ground-Truth)
+----------------------------
+
+To obtain ground-truth execution times, run the full model directly through
+XLA:
+
+.. code-block:: bash
+
+   # Translate StableHLO → HLO
+   xla-translate --stablehlo-to-hlo-text \
+       -o llama3-100m.hlo hespas_workloads/llama3-100m.mlir
+
+   # Compile and execute on all 4 GPUs
+   hlo_runner_main \
+       --num_repeats=5 \
+       --profile_execution=true \
+       --hlo_argument_mode=uninitialized \
+       llama3-100m.hlo
+
+This performs full XLA compilation (including all optimizations) and runs the
+sharded model across all available GPUs, including collective communications
+over NVLink. Output looks like:
+
+.. code-block:: text
+
+   ## Execution time, file=llama3-100m.hlo repeat=0 duration=827655700ns
+   ## Execution time, file=llama3-100m.hlo repeat=1 duration=86603775ns
+   ## Execution time, file=llama3-100m.hlo repeat=2 duration=83090431ns
+   ## Execution time, file=llama3-100m.hlo repeat=3 duration=75189247ns
+   ## Execution time, file=llama3-100m.hlo repeat=4 duration=73478141ns
+
+**73–87 ms** per training step on 4× A100 SXM 40GB.
+
+Alternatively, you can run actual training steps with ``MaxText.train`` on
+synthetic data, which can produce XProf traces for detailed kernel-level
+analysis.
+
+.. figure:: ../_static/images/xprof.png
+   :align: center
+   :alt: XProf trace of the LLaMA 3 100M reference run
+   :target: ../_static/images/xprof.png
+
+   XProf trace showing the execution timeline of one training step.
+
 Analytical Estimation
 ---------------------
 
@@ -403,6 +447,22 @@ real GPU hardware.
        --num_npus 4 \
        --log-level info
 
+Output:
+
+.. code-block:: text
+
+   Cache hits: 303
+   Basic block reuse rate: 0.808 (303/375)
+   Operator reuse factor: 0.55 (2819/5123)
+   Total estimator time taken vs cached time: 372.45 s vs total time (without caching): 1861.957 s (79.997 % reduction)
+   Compute Runtime Estimation: 104717.824 us
+
+The **compute runtime estimation is ~105 ms**. This is not running communication collectives but is already higher than the refrence run. 
+XLA profiles each block individually, incurring overhead not
+present in a fused end-to-end run. Note the cached block reuse is impactful
+here: caching reduces the profiling time by **80%** (from ~31 minutes to ~6
+minutes).
+
 Pre-profiled Chakra traces for the LLaMA 3 models are available in the
 ``llama-3-4-xla`` branch of the workloads repository, organized by GPU type:
 
@@ -424,50 +484,6 @@ passed directly to ASTRA-sim without re-running the profiling step.
    block — producing more realistic profiled timings than running each op in
    isolation. For more details on the available splitting strategies, see
    :doc:`/user_guide/estimators`.
-
-Reference Run (Ground-Truth)
-----------------------------
-
-To obtain ground-truth execution times, run the full model directly through
-XLA:
-
-.. code-block:: bash
-
-   # Translate StableHLO → HLO
-   xla-translate --stablehlo-to-hlo-text \
-       -o llama3-100m.hlo hespas_workloads/llama3-100m.mlir
-
-   # Compile and execute on all 4 GPUs
-   hlo_runner_main \
-       --num_repeats=5 \
-       --profile_execution=true \
-       --hlo_argument_mode=uninitialized \
-       llama3-100m.hlo
-
-This performs full XLA compilation (including all optimizations) and runs the
-sharded model across all available GPUs, including collective communications
-over NVLink. Output looks like:
-
-.. code-block:: text
-
-   ## Execution time, file=llama3-100m.hlo repeat=0 duration=827655700ns
-   ## Execution time, file=llama3-100m.hlo repeat=1 duration=86603775ns
-   ## Execution time, file=llama3-100m.hlo repeat=2 duration=83090431ns
-   ## Execution time, file=llama3-100m.hlo repeat=3 duration=75189247ns
-   ## Execution time, file=llama3-100m.hlo repeat=4 duration=73478141ns
-
-**73–87 ms** per training step on 4× A100 SXM 40GB.
-
-Alternatively, you can run actual training steps with ``MaxText.train`` on
-synthetic data, which can produce XProf traces for detailed kernel-level
-analysis.
-
-.. figure:: ../_static/images/xprof.png
-   :align: center
-   :alt: XProf trace of the LLaMA 3 100M reference run
-   :target: ../_static/images/xprof.png
-
-   XProf trace showing the execution timeline of one training step.
 
 Network Simulation with ASTRA-sim
 ---------------------------------
