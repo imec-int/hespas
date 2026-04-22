@@ -49,6 +49,13 @@ Generate a Chakra trace for a sample workload:
 
 .. toctree::
    :maxdepth: 1
+   :caption: Tutorials
+   :hidden:
+
+   tutorials/ispass_2026_workshop
+
+.. toctree::
+   :maxdepth: 1
    :caption: API Reference
    :hidden:
 
