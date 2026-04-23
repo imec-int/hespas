@@ -1,7 +1,7 @@
 # Copyright (c) 2026 imec
 # SPDX-License-Identifier: MIT
 
-ARG BASE_IMAGE=hespas.azurecr.io/runpod_jax:jax
+ARG BASE_IMAGE=ghcr.io/imec-int/hespas:jax
 ARG URLREF_ASTRA_SIM=git@github.imec.be:HeSPaS/astra-sim.git
 ARG SRC_PATH_ASTRA_SIM=/opt/astra-sim
 
