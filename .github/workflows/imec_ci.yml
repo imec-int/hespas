@@ -1,4 +1,4 @@
-name: HESPAS_WORKLOAD IMEC CLUSTER CI
+name: Hespas CI
 
 on:
   push:
