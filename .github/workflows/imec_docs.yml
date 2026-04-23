@@ -16,15 +16,8 @@ jobs:
     if: github.server_url == 'https://github.imec.be'
     runs-on: [self-hosted, Linux, X64]
     environment: svedas16_env
-    container:
-      image: ubuntu:latest
 
     steps:
-    - name: Install system dependencies
-      run: |
-        apt-get update
-        apt-get install -y curl git python3 python3-pip openssh-client
-
     - name: Checkout code
       uses: actions/checkout@v4
       with:
