@@ -9,7 +9,7 @@ set -e
 
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 ASTRASIM_SRC_DIR="${SCRIPT_DIR}/.astrasim"
-ASTRASIM_COMMIT="28f18ea0d58a96fd812e49b71bdac330a1e3c965"
+ASTRASIM_COMMIT="831eca84b41b1a3d9c1c527d1153c254026ab029"
 ASTRASIM_REPO="https://github.com/astra-sim/astra-sim.git"
 ASTRASIM_BIN_DIR="${ASTRASIM_SRC_DIR}/build/astra_analytical/build/bin"
 
