@@ -1,0 +1,37 @@
+hespas.mlir\_parser.mlir\_splitter
+==================================
+
+.. automodule:: hespas.mlir_parser.mlir_splitter
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      create_digraph
+      create_digraph_with_deps
+      individual_split
+      linear_split
+      load_dependency_graph
+      main
+      merge_split
+      parse_and_split_mlir
+      register_split_fn
+      save_dependency_graph
+      split_by_opregion
+      validate_dependency_graph
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      SeparatorPolicy
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      DependencyGraphValidationError
+      LoadDependencyException
+      MLIRSplittingError
+   

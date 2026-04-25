@@ -1,0 +1,15 @@
+hespas.estimator.result
+=======================
+
+.. automodule:: hespas.estimator.result
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      EstimatorResult
+      ModuleResult
+      OpResult
+      Result
+   

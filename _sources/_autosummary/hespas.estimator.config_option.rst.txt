@@ -1,0 +1,18 @@
+hespas.estimator.config\_option
+===============================
+
+.. automodule:: hespas.estimator.config_option
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ConfigOption
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      InvalidConfigOptionError
+   

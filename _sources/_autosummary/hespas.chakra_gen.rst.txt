@@ -1,0 +1,14 @@
+﻿hespas.chakra\_gen
+==================
+
+.. automodule:: hespas.chakra_gen
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   chakra_config
+   chakra_trace_generator

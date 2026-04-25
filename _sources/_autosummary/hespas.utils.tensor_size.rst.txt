@@ -1,0 +1,12 @@
+hespas.utils.tensor\_size
+=========================
+
+.. automodule:: hespas.utils.tensor_size
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      compute_tensor_size
+   

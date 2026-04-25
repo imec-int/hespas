@@ -1,0 +1,6 @@
+﻿hespas.hespas\_chakra\_gen
+==========================
+
+.. automodule:: hespas.hespas_chakra_gen
+
+   

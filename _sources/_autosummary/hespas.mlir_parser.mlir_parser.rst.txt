@@ -1,0 +1,12 @@
+hespas.mlir\_parser.mlir\_parser
+================================
+
+.. automodule:: hespas.mlir_parser.mlir_parser
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      MLIRParser
+   

@@ -1,0 +1,18 @@
+hespas.estimator.roofline\_estimator
+====================================
+
+.. automodule:: hespas.estimator.roofline_estimator
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      RooflineEstimator
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      RooflineMissingDatatypeError
+   

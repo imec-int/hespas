@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hespas.utils.logging &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hespas.utils.num_tools" href="hespas.utils.num_tools.html" />
+    <link rel="prev" title="hespas.utils.iree" href="hespas.utils.iree.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hespas.html">hespas</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hespas.chakra_gen.html">hespas.chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.estimator.html">hespas.estimator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.event_counters.html">hespas.event_counters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.hespas_chakra_gen.html">hespas.hespas_chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.mlir_parser.html">hespas.mlir_parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.statistics.html">hespas.statistics</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="hespas.utils.html">hespas.utils</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hespas.utils.dict_tools.html">hespas.utils.dict_tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.utils.dt_sizes.html">hespas.utils.dt_sizes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.utils.iree.html">hespas.utils.iree</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hespas.utils.logging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.utils.logging.LogFormatter"><code class="docutils literal notranslate"><span class="pre">LogFormatter</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.utils.logging.LogFormatter.__init__"><code class="docutils literal notranslate"><span class="pre">LogFormatter.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.utils.logging.LogFormatter.format"><code class="docutils literal notranslate"><span class="pre">LogFormatter.format()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.utils.logging.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.utils.logging.Logger.progress"><code class="docutils literal notranslate"><span class="pre">Logger.progress()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.utils.logging.Logger.results"><code class="docutils literal notranslate"><span class="pre">Logger.results()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.utils.logging.logger_basic_config"><code class="docutils literal notranslate"><span class="pre">logger_basic_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.utils.logging.get_terminal_cols"><code class="docutils literal notranslate"><span class="pre">get_terminal_cols()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.utils.logging.get_str_divider"><code class="docutils literal notranslate"><span class="pre">get_str_divider()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.utils.logging.get_divided_title"><code class="docutils literal notranslate"><span class="pre">get_divided_title()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.utils.logging.print_divider"><code class="docutils literal notranslate"><span class="pre">print_divider()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.utils.logging.get_log_levels"><code class="docutils literal notranslate"><span class="pre">get_log_levels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.utils.logging.get_cur_log_level"><code class="docutils literal notranslate"><span class="pre">get_cur_log_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.utils.num_tools.html">hespas.utils.num_tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.utils.op_info.html">hespas.utils.op_info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.utils.serialisable.html">hespas.utils.serialisable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.utils.tensor_size.html">hespas.utils.tensor_size</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hespas.html">hespas</a></li>
+          <li class="breadcrumb-item"><a href="hespas.utils.html">hespas.utils</a></li>
+      <li class="breadcrumb-item active">hespas.utils.logging</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-hespas.utils.logging">
+<span id="hespas-utils-logging"></span><h1>hespas.utils.logging<a class="headerlink" href="#module-hespas.utils.logging" title="Link to this heading"></a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.utils.logging.get_cur_log_level" title="hespas.utils.logging.get_cur_log_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cur_log_level</span></code></a>(log)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.utils.logging.get_divided_title" title="hespas.utils.logging.get_divided_title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_divided_title</span></code></a>(msg[, div_char])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.utils.logging.get_log_levels" title="hespas.utils.logging.get_log_levels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_log_levels</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.utils.logging.get_str_divider" title="hespas.utils.logging.get_str_divider"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_str_divider</span></code></a>([div_char])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.utils.logging.get_terminal_cols" title="hespas.utils.logging.get_terminal_cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_terminal_cols</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.utils.logging.logger_basic_config" title="hespas.utils.logging.logger_basic_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger_basic_config</span></code></a>([filename, level])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.utils.logging.print_divider" title="hespas.utils.logging.print_divider"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_divider</span></code></a>([div_char])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.utils.logging.LogFormatter" title="hespas.utils.logging.LogFormatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LogFormatter</span></code></a>(**kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.utils.logging.Logger" title="hespas.utils.logging.Logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Logger</span></code></a>(name[, level])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.utils.logging.LogFormatter">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.utils.logging.</span></span><span class="sig-name descname"><span class="pre">LogFormatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.LogFormatter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Formatter</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.utils.logging.LogFormatter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.LogFormatter.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the formatter with specified format strings.</p>
+<p>Initialize the formatter either with the specified format string, or a
+default as described above. Allow for specialized date formatting with
+the optional datefmt argument. If datefmt is omitted, you get an
+ISO8601-like (or RFC 3339-like) format.</p>
+<p>Use a style parameter of ‘%’, ‘{’ or ‘$’ to specify that you want to
+use one of %-formatting, <code class="xref py py-meth docutils literal notranslate"><span class="pre">str.format()</span></code> (<code class="docutils literal notranslate"><span class="pre">{}</span></code>) formatting or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">string.Template</span></code> formatting in your format string.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.2: </span>Added the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.utils.logging.LogFormatter.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.LogFormatter.format" title="Link to this definition"></a></dt>
+<dd><p>Format the specified record as text.</p>
+<p>The record’s attribute dictionary is used as the operand to a
+string formatting operation which yields the returned string.
+Before formatting the dictionary, a couple of preparatory steps
+are carried out. The message attribute of the record is computed
+using LogRecord.getMessage(). If the formatting string uses the
+time (as determined by a call to usesTime(), formatTime() is
+called to format the event time. If there is exception information,
+it is formatted using formatException() and appended to the message.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.utils.logging.Logger">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.utils.logging.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.Logger" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.utils.logging.Logger.progress">
+<span class="sig-name descname"><span class="pre">progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.Logger.progress" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.utils.logging.Logger.results">
+<span class="sig-name descname"><span class="pre">results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.Logger.results" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.utils.logging.logger_basic_config">
+<span class="sig-prename descclassname"><span class="pre">hespas.utils.logging.</span></span><span class="sig-name descname"><span class="pre">logger_basic_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.logger_basic_config" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.utils.logging.get_terminal_cols">
+<span class="sig-prename descclassname"><span class="pre">hespas.utils.logging.</span></span><span class="sig-name descname"><span class="pre">get_terminal_cols</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.get_terminal_cols" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.utils.logging.get_str_divider">
+<span class="sig-prename descclassname"><span class="pre">hespas.utils.logging.</span></span><span class="sig-name descname"><span class="pre">get_str_divider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">div_char</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.get_str_divider" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.utils.logging.get_divided_title">
+<span class="sig-prename descclassname"><span class="pre">hespas.utils.logging.</span></span><span class="sig-name descname"><span class="pre">get_divided_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div_char</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.get_divided_title" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.utils.logging.print_divider">
+<span class="sig-prename descclassname"><span class="pre">hespas.utils.logging.</span></span><span class="sig-name descname"><span class="pre">print_divider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">div_char</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.print_divider" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.utils.logging.get_log_levels">
+<span class="sig-prename descclassname"><span class="pre">hespas.utils.logging.</span></span><span class="sig-name descname"><span class="pre">get_log_levels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.get_log_levels" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.utils.logging.get_cur_log_level">
+<span class="sig-prename descclassname"><span class="pre">hespas.utils.logging.</span></span><span class="sig-name descname"><span class="pre">get_cur_log_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.utils.logging.get_cur_log_level" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hespas.utils.iree.html" class="btn btn-neutral float-left" title="hespas.utils.iree" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hespas.utils.num_tools.html" class="btn btn-neutral float-right" title="hespas.utils.num_tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

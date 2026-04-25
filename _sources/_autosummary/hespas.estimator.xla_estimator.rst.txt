@@ -1,0 +1,12 @@
+hespas.estimator.xla\_estimator
+===============================
+
+.. automodule:: hespas.estimator.xla_estimator
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      XLAEstimator
+   

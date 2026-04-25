@@ -1,0 +1,22 @@
+hespas.chakra\_gen.chakra\_trace\_generator
+===========================================
+
+.. automodule:: hespas.chakra_gen.chakra_trace_generator
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      create_chakra_traces
+      get_arg_parser
+      get_block_type
+      main
+      setup_output_dir
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ChakraTraceGen
+   

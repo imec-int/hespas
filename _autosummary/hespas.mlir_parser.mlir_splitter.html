@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hespas.mlir_parser.mlir_splitter &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hespas.statistics" href="hespas.statistics.html" />
+    <link rel="prev" title="hespas.mlir_parser.mlir_parser" href="hespas.mlir_parser.mlir_parser.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hespas.html">hespas</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hespas.chakra_gen.html">hespas.chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.estimator.html">hespas.estimator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.event_counters.html">hespas.event_counters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.hespas_chakra_gen.html">hespas.hespas_chakra_gen</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="hespas.mlir_parser.html">hespas.mlir_parser</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.html#hespas.mlir_parser.parse_and_split_mlir"><code class="docutils literal notranslate"><span class="pre">parse_and_split_mlir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.html#hespas.mlir_parser.MLIRParser"><code class="docutils literal notranslate"><span class="pre">MLIRParser</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.html#hespas.mlir_parser.MLIRModule"><code class="docutils literal notranslate"><span class="pre">MLIRModule</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.mlir_analyzer.html">hespas.mlir_parser.mlir_analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.mlir_common.html">hespas.mlir_parser.mlir_common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html">hespas.mlir_parser.mlir_module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.mlir_parser.html">hespas.mlir_parser.mlir_parser</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hespas.mlir_parser.mlir_splitter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.LoadDependencyException"><code class="docutils literal notranslate"><span class="pre">LoadDependencyException</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.MLIRSplittingError"><code class="docutils literal notranslate"><span class="pre">MLIRSplittingError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.DependencyGraphValidationError"><code class="docutils literal notranslate"><span class="pre">DependencyGraphValidationError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.register_split_fn"><code class="docutils literal notranslate"><span class="pre">register_split_fn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.split_by_opregion"><code class="docutils literal notranslate"><span class="pre">split_by_opregion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy"><code class="docutils literal notranslate"><span class="pre">SeparatorPolicy</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy.ISOLATED"><code class="docutils literal notranslate"><span class="pre">SeparatorPolicy.ISOLATED</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy.END_BLOCK"><code class="docutils literal notranslate"><span class="pre">SeparatorPolicy.END_BLOCK</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy.START_BLOCK"><code class="docutils literal notranslate"><span class="pre">SeparatorPolicy.START_BLOCK</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy.from_string"><code class="docutils literal notranslate"><span class="pre">SeparatorPolicy.from_string()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.linear_split"><code class="docutils literal notranslate"><span class="pre">linear_split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.merge_split"><code class="docutils literal notranslate"><span class="pre">merge_split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.individual_split"><code class="docutils literal notranslate"><span class="pre">individual_split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.create_digraph_with_deps"><code class="docutils literal notranslate"><span class="pre">create_digraph_with_deps()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.create_digraph"><code class="docutils literal notranslate"><span class="pre">create_digraph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.parse_and_split_mlir"><code class="docutils literal notranslate"><span class="pre">parse_and_split_mlir()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.save_dependency_graph"><code class="docutils literal notranslate"><span class="pre">save_dependency_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.load_dependency_graph"><code class="docutils literal notranslate"><span class="pre">load_dependency_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.validate_dependency_graph"><code class="docutils literal notranslate"><span class="pre">validate_dependency_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.statistics.html">hespas.statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.utils.html">hespas.utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hespas.html">hespas</a></li>
+          <li class="breadcrumb-item"><a href="hespas.mlir_parser.html">hespas.mlir_parser</a></li>
+      <li class="breadcrumb-item active">hespas.mlir_parser.mlir_splitter</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-hespas.mlir_parser.mlir_splitter">
+<span id="hespas-mlir-parser-mlir-splitter"></span><h1>hespas.mlir_parser.mlir_splitter<a class="headerlink" href="#module-hespas.mlir_parser.mlir_splitter" title="Link to this heading"></a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.create_digraph" title="hespas.mlir_parser.mlir_splitter.create_digraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_digraph</span></code></a>(operation_blocks)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.create_digraph_with_deps" title="hespas.mlir_parser.mlir_splitter.create_digraph_with_deps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_digraph_with_deps</span></code></a>(operation_blocks, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.individual_split" title="hespas.mlir_parser.mlir_splitter.individual_split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">individual_split</span></code></a>(operations[, merge])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.linear_split" title="hespas.mlir_parser.mlir_splitter.linear_split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear_split</span></code></a>(operations[, block_lim, ...])</p></td>
+<td><p>Linear sequential split algorithm for MLIR operations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.load_dependency_graph" title="hespas.mlir_parser.mlir_splitter.load_dependency_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_dependency_graph</span></code></a>(pickle_path)</p></td>
+<td><p>Load a dependency graph with MLIRModule objects from a pickle file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.main" title="hespas.mlir_parser.mlir_splitter.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.merge_split" title="hespas.mlir_parser.mlir_splitter.merge_split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_split</span></code></a>(elements, module_dep_graph)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.parse_and_split_mlir" title="hespas.mlir_parser.mlir_splitter.parse_and_split_mlir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_and_split_mlir</span></code></a>(file_path, output_path)</p></td>
+<td><p>Parses the StableHLO MLIR file and uses the provided <cite>split_fn</cite> to split the module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.register_split_fn" title="hespas.mlir_parser.mlir_splitter.register_split_fn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_split_fn</span></code></a>(func)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.save_dependency_graph" title="hespas.mlir_parser.mlir_splitter.save_dependency_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_dependency_graph</span></code></a>(dep_graph, output_dir)</p></td>
+<td><p>Save a dependency graph with MLIRModule objects to a pickle file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.split_by_opregion" title="hespas.mlir_parser.mlir_splitter.split_by_opregion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_by_opregion</span></code></a>(module, operation_regions)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.validate_dependency_graph" title="hespas.mlir_parser.mlir_splitter.validate_dependency_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_dependency_graph</span></code></a>(dep_graph)</p></td>
+<td><p>Validate the integrity of a dependency graph with MLIRModule objects.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy" title="hespas.mlir_parser.mlir_splitter.SeparatorPolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeparatorPolicy</span></code></a>(*values)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Exceptions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.DependencyGraphValidationError" title="hespas.mlir_parser.mlir_splitter.DependencyGraphValidationError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DependencyGraphValidationError</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.LoadDependencyException" title="hespas.mlir_parser.mlir_splitter.LoadDependencyException"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LoadDependencyException</span></code></a></p></td>
+<td><p>Custom exception for dependency graph loading failures.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_splitter.MLIRSplittingError" title="hespas.mlir_parser.mlir_splitter.MLIRSplittingError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MLIRSplittingError</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py exception">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.LoadDependencyException">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">LoadDependencyException</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.LoadDependencyException" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Custom exception for dependency graph loading failures.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.MLIRSplittingError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">MLIRSplittingError</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.MLIRSplittingError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.DependencyGraphValidationError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">DependencyGraphValidationError</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.DependencyGraphValidationError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.register_split_fn">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">register_split_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.register_split_fn" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.split_by_opregion">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">split_by_opregion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operation_regions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.split_by_opregion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.SeparatorPolicy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">SeparatorPolicy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.SeparatorPolicy.ISOLATED">
+<span class="sig-name descname"><span class="pre">ISOLATED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy.ISOLATED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.SeparatorPolicy.END_BLOCK">
+<span class="sig-name descname"><span class="pre">END_BLOCK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy.END_BLOCK" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.SeparatorPolicy.START_BLOCK">
+<span class="sig-name descname"><span class="pre">START_BLOCK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy.START_BLOCK" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.SeparatorPolicy.from_string">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.SeparatorPolicy.from_string" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.linear_split">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">linear_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;function</span> <span class="pre">is_communication_op&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SeparatorPolicy.ISOLATED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator_node_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NodeType.COMM_COLL_NODE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.linear_split" title="Link to this definition"></a></dt>
+<dd><p>Linear sequential split algorithm for MLIR operations.</p>
+<p>The algorithm scans operations in order, grouping computational ones into blocks of up to block_lim ops.
+Every communication op is isolated into its own singleton block.
+At the end, you get a sequence of COMP and COMM blocks in execution order,
+and a simple chain dependency graph linking them linearly.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>operations: Sequence of MLIR operations to split
+block_lim: Maximum number of operations per COMP block (default: 1024)</p>
+</dd>
+<dt>Returns:</dt><dd><p>Tuple[List[(ops, block_type)], nx.DiGraph]: Sequential operation blocks and linear dependency graph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.merge_split">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">merge_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_dep_graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.merge_split" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.individual_split">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">individual_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.individual_split" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.create_digraph_with_deps">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">create_digraph_with_deps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operation_blocks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operation_dependencies</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.create_digraph_with_deps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.create_digraph">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">create_digraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operation_blocks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.create_digraph" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.parse_and_split_mlir">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">parse_and_split_mlir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;function</span> <span class="pre">linear_split&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*split_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**split_kw_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.parse_and_split_mlir" title="Link to this definition"></a></dt>
+<dd><p>Parses the StableHLO MLIR file and uses the provided <cite>split_fn</cite> to split the module.
+Returns a list of modules and metadata for each split.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> – Path to the input MLIR file.</p></li>
+<li><p><strong>output_path</strong> – Path to write the output (unused here but assumed for downstream).</p></li>
+<li><p><strong>split_fn</strong> – A function that takes a parsed module and returns a list of (ops, block_type) tuples.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.save_dependency_graph">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">save_dependency_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dep_graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DiGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.save_dependency_graph" title="Link to this definition"></a></dt>
+<dd><p>Save a dependency graph with MLIRModule objects to a pickle file.</p>
+<p>This function serializes a NetworkX DiGraph containing MLIRModule objects
+in the node attributes to a pickle file for later restoration.</p>
+<dl>
+<dt>Args:</dt><dd><p>dep_graph (nx.DiGraph): Dependency graph with MLIRModule objects in node[‘mlir_module’]
+output_dir (Union[str, Path]): Directory to save the pickle file</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: Path to the saved pickle file</p>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dep_graph</span> <span class="o">=</span> <span class="n">parse_and_split_mlir</span><span class="p">(</span><span class="s2">&quot;input.mlir&quot;</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pickle_path</span> <span class="o">=</span> <span class="n">save_dependency_graph</span><span class="p">(</span><span class="n">dep_graph</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Graph saved to </span><span class="si">{</span><span class="n">pickle_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.load_dependency_graph">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">load_dependency_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pickle_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DiGraph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.load_dependency_graph" title="Link to this definition"></a></dt>
+<dd><p>Load a dependency graph with MLIRModule objects from a pickle file.</p>
+<p>This function deserializes a NetworkX DiGraph containing MLIRModule objects
+from a pickle file. It handles MLIRModule class state restoration properly.</p>
+<dl>
+<dt>Args:</dt><dd><p>pickle_path (Union[str, Path]): Path to the pickle file</p>
+</dd>
+<dt>Returns:</dt><dd><p>Optional[nx.DiGraph]: Loaded dependency graph, or None if loading failed</p>
+</dd>
+<dt>Raises:</dt><dd><p>FileNotFoundError: If the pickle file doesn’t exist
+pickle.PickleError: If the pickle file is corrupted or incompatible</p>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dep_graph</span> <span class="o">=</span> <span class="n">load_dependency_graph</span><span class="p">(</span><span class="s2">&quot;output/dependency_graph.pkl&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">dep_graph</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded graph with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">dep_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span><span class="si">}</span><span class="s2"> nodes&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.validate_dependency_graph">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">validate_dependency_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dep_graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DiGraph</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.validate_dependency_graph" title="Link to this definition"></a></dt>
+<dd><p>Validate the integrity of a dependency graph with MLIRModule objects.</p>
+<p>This function checks that the dependency graph is properly formed and
+all MLIRModule objects are valid.</p>
+<dl>
+<dt>Args:</dt><dd><p>dep_graph (nx.DiGraph): Dependency graph to validate</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True if valid, False otherwise</p>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dep_graph</span> <span class="o">=</span> <span class="n">load_dependency_graph</span><span class="p">(</span><span class="s2">&quot;output/dependency_graph.pkl&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">validate_dependency_graph</span><span class="p">(</span><span class="n">dep_graph</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Graph is valid&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_splitter.main">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_splitter.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_splitter.main" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hespas.mlir_parser.mlir_parser.html" class="btn btn-neutral float-left" title="hespas.mlir_parser.mlir_parser" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hespas.statistics.html" class="btn btn-neutral float-right" title="hespas.statistics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

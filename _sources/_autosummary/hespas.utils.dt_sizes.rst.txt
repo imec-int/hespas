@@ -1,0 +1,14 @@
+hespas.utils.dt\_sizes
+======================
+
+.. automodule:: hespas.utils.dt_sizes
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      get_aligned_bytes
+      get_bit_width
+      get_tensor_bit_width
+   

@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hespas.event_counters &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hespas.event_counters.event" href="hespas.event_counters.event.html" />
+    <link rel="prev" title="hespas.estimator.xla_estimator" href="hespas.estimator.xla_estimator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hespas.html">hespas</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hespas.chakra_gen.html">hespas.chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.estimator.html">hespas.estimator</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">hespas.event_counters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hespas.event_counters.CounterEvent"><code class="docutils literal notranslate"><span class="pre">CounterEvent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEvent.event_name"><code class="docutils literal notranslate"><span class="pre">CounterEvent.event_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEvent.timestamp"><code class="docutils literal notranslate"><span class="pre">CounterEvent.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEvent.timeunit"><code class="docutils literal notranslate"><span class="pre">CounterEvent.timeunit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEvent.metadata"><code class="docutils literal notranslate"><span class="pre">CounterEvent.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEvent.__init__"><code class="docutils literal notranslate"><span class="pre">CounterEvent.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#hespas.event_counters.CounterEventStream"><code class="docutils literal notranslate"><span class="pre">CounterEventStream</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEventStream.class_version"><code class="docutils literal notranslate"><span class="pre">CounterEventStream.class_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEventStream.version"><code class="docutils literal notranslate"><span class="pre">CounterEventStream.version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEventStream.metadata"><code class="docutils literal notranslate"><span class="pre">CounterEventStream.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEventStream.events"><code class="docutils literal notranslate"><span class="pre">CounterEventStream.events</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEventStream.add_event"><code class="docutils literal notranslate"><span class="pre">CounterEventStream.add_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEventStream.__ver_tuple_to_str"><code class="docutils literal notranslate"><span class="pre">CounterEventStream.__ver_tuple_to_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEventStream.__ver_str_to_tuple"><code class="docutils literal notranslate"><span class="pre">CounterEventStream.__ver_str_to_tuple()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.event_counters.CounterEventStream.__init__"><code class="docutils literal notranslate"><span class="pre">CounterEventStream.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.event_counters.event.html">hespas.event_counters.event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.event_counters.stream.html">hespas.event_counters.stream</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.hespas_chakra_gen.html">hespas.hespas_chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.mlir_parser.html">hespas.mlir_parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.statistics.html">hespas.statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.utils.html">hespas.utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hespas.html">hespas</a></li>
+      <li class="breadcrumb-item active">hespas.event_counters</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-hespas.event_counters">
+<span id="hespas-event-counters"></span><h1>hespas.event_counters<a class="headerlink" href="#module-hespas.event_counters" title="Link to this heading"></a></h1>
+<p>Utility to serialize/deserialize events generated by the estimators.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEvent">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.event_counters.</span></span><span class="sig-name descname"><span class="pre">CounterEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeunit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.event_counters.CounterEvent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="hespas.utils.serialisable.html#hespas.utils.serialisable.Serialisable" title="hespas.utils.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<p>This class represents a single Performance Counter Event. The details of the event are not specified -
+this is intended to simply serialise an event in a generic way to allowing flexible generation of
+events from Estimator sources and analysis of events in external tools (such as extracting power information).</p>
+<p>This class is not intended to be used alone, but rather should be contained within a CounterEventStream.
+Users can instantiate this class and serialise/deserialise this class on its own, but it is not recommended.
+The recommended interface is use to use add_event() within CounterEventStream, and to only serialise/deserialise
+entire CounterEventStream objects.</p>
+<p>‘timestamp’ is intended to be generic enough allow even Estimators without a concept of time to generate a stream
+of events. This is why ‘timeunit’ is seperate from ‘timestamp’. A ‘timeunit’ of “” (the empty string) should be
+taken as:
+“each timestamp represents a unique time quanta, with timestamps less than this one happening before
+this time quanta, equal to this timestamp happening at the same time quanta, and greater than happening after
+this time quanta”
+If the timeunit is defined to a non-empty string, it should either be a reasonable unit (like ‘s’) or something
+like ‘cycles’ that can be straightforwardly understood by external tools.</p>
+<p>‘metadata’ is intentionally a (possibly empty) free dictionary to be used to capture any implementation-specific
+information that is useful for external tools to understand information related to this event. No specific default
+or required metadata is specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event_name</strong> – Name of the event being captured.</p></li>
+<li><p><strong>timestamp</strong> – A number representing the time that this event occurs.</p></li>
+<li><p><strong>timeunit</strong> – A string representing the unit of time for the timestamp, or empty string (meaning generic time quanta)</p></li>
+<li><p><strong>metadata</strong> – A (possibly empty) dict containing metadata for the counter event.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEvent.event_name">
+<span class="sig-name descname"><span class="pre">event_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#hespas.event_counters.CounterEvent.event_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEvent.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#hespas.event_counters.CounterEvent.timestamp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEvent.timeunit">
+<span class="sig-name descname"><span class="pre">timeunit</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#hespas.event_counters.CounterEvent.timeunit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEvent.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#hespas.event_counters.CounterEvent.metadata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEvent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeunit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#hespas.event_counters.CounterEvent.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEventStream">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.event_counters.</span></span><span class="sig-name descname"><span class="pre">CounterEventStream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">events</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="hespas.event_counters.event.html#hespas.event_counters.event.CounterEvent" title="hespas.event_counters.event.CounterEvent"><span class="pre">CounterEvent</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.event_counters.CounterEventStream" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="hespas.utils.serialisable.html#hespas.utils.serialisable.Serialisable" title="hespas.utils.serialisable.Serialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serialisable</span></code></a></p>
+<p>This class represents an entire series of Performance Counter events, and handles the serialisation and deserialisation
+of the Performance Counter JSON file format. Users should use this class to serialise and deserialise the Performance
+Counter format, as well as used an instantiated object from this class to collect events within an Estimator.
+The format of the series of Performance Counter events is intentionally kept generic, so a large set of models and
+analysis tools can use it as a common intermediary format. CounterEventStream itself contains three fields, either
+set at instantiation or through deserialisation - a version, either derived from the current implementation version
+or from the contents of the deserialised JSON; some metadata within an dict, and a list of events. Each event is
+an object of type CounterEvent, which contains an event_name, a timestamp, a timeunit, and a metadata dict itself.</p>
+<p>The Performance Counter file format is an intentionally high-level, generic intermediate file format to allow Estimators
+to generate a list of events that external tools can process and use in the process of things like power analysis.
+The Performance Counter file format is JSON, with the following specified fields:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.1&quot;</span> <span class="o">&lt;-</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">required</span> <span class="n">version</span> <span class="n">of</span> <span class="n">the</span> <span class="n">generated</span> <span class="n">Performance</span> <span class="n">Counter</span> <span class="n">file</span>
+    <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="o">&lt;-</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">an</span> <span class="p">(</span><span class="n">possibly</span> <span class="n">empty</span><span class="p">)</span> <span class="n">metadata</span> <span class="nb">object</span> <span class="n">that</span> <span class="n">should</span> <span class="n">apply</span> <span class="n">to</span> <span class="nb">all</span> <span class="n">events</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;some_optional_metadata&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">&quot;not_specified&quot;</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="o">&lt;-</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="nb">list</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">performance</span> <span class="n">counter</span> <span class="n">events</span>
+    <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;event_name&quot;</span><span class="p">:</span> <span class="s2">&quot;an_event&quot;</span><span class="p">,</span> <span class="o">&lt;-</span> <span class="n">The</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">event</span><span class="o">.</span> <span class="n">The</span> <span class="n">meaning</span> <span class="ow">is</span> <span class="n">intentionally</span> <span class="ow">not</span> <span class="n">specified</span>
+            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&lt;-</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">time</span> <span class="n">quanta</span> <span class="k">for</span> <span class="n">this</span> <span class="n">event</span>
+            <span class="s2">&quot;timeunit&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">&lt;-</span> <span class="n">Empty</span> <span class="n">string</span> <span class="n">here</span> <span class="n">means</span> <span class="s1">&#39;some abstract ordered time quanta&#39;</span>
+            <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{}</span> <span class="o">&lt;-</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">an</span> <span class="p">(</span><span class="n">possibly</span> <span class="n">empty</span><span class="p">)</span> <span class="n">metadata</span> <span class="nb">object</span> <span class="n">specific</span> <span class="n">to</span> <span class="n">this</span> <span class="n">event</span>
+        <span class="p">},</span>
+        <span class="o">...</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;event_name&quot;</span><span class="p">:</span> <span class="s2">&quot;another_event&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mf">1.1</span><span class="p">,</span> <span class="o">&lt;-</span> <span class="n">timestamps</span> <span class="n">are</span> <span class="n">allowed</span> <span class="n">to</span> <span class="n">be</span> <span class="n">floats</span>
+            <span class="s2">&quot;timeunit&quot;</span><span class="p">:</span> <span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="o">&lt;-</span> <span class="n">When</span> <span class="n">timeunit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">the</span> <span class="n">empty</span> <span class="n">string</span><span class="p">,</span> <span class="n">it</span> <span class="n">should</span> <span class="n">be</span> <span class="n">a</span> <span class="n">real</span> <span class="n">time</span> <span class="n">unit</span>
+            <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="o">&lt;-</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="n">per</span> <span class="n">event</span> <span class="ow">and</span> <span class="n">can</span> <span class="n">be</span> <span class="n">unique</span> <span class="n">to</span> <span class="n">a</span> <span class="n">single</span> <span class="n">one</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;unique_to_this_event&quot;</span><span class="p">:</span> <span class="n">true</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <strong>version</strong> field is intended to ensure that if the format changes in future, that older code can be aware when
+the object is instantiated through deserialisation. It should not be set manually in instantiation by users.</p>
+<p><strong>metadata</strong> is intentionally a (possibly empty) free dictionary to be used to capture any implementation-specific
+information that is useful for external tools to understand information related to this series of events.
+No specific default or required metadata is specified. The metadata within this dictionary should be applicable
+to all events contained within the events list.</p>
+<p><strong>events</strong> is the list of all Performance Counter events contained within this EventStream. During deserialisation,
+this will be set at time of instantiation, but in programmtic use users should instantiate a CounterEventStream
+with only the ‘metadata’ field (if any exists) and use ‘add_event()’ to add each Performance Counter event.</p>
+<dl class="simple">
+<dt>Within an event (which is implemented in the CounterEvent class), each object has the following fields:</dt><dd><ul class="simple">
+<li><p>timestamp: intended to be generic enough allow even Estimators without a concept of time to generate a stream
+of events. This is why ‘timeunit’ is seperate from ‘timestamp’. A ‘timeunit’ of “” (the empty string) should be
+taken as: “each timestamp represents a unique time quanta, with timestamps less than this one happening before
+this time quanta, equal to this timestamp happening at the same time quanta, and greater than happening after
+this time quanta” If the timeunit is defined to a non-empty string, it should either be a reasonable unit (like ‘s’)
+or something like ‘cycles’ that can be straightforwardly understood by external tools.</p></li>
+<li><p>metadata: intentionally a (possibly empty) free dictionary to be used to capture any implementation-specific
+information that is useful for external tools to understand information related to this event. No specific default
+or required metadata is specified.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>class_version</strong> is the current implementation version of the class. This will not be serialised.
+It is used for comparison with the ‘version’ found in deserialisation, but otherwise should not be touched by users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> – Version of the instantiated CounterEventStream. Should not be set by Users</p></li>
+<li><p><strong>metadata</strong> – A (possibly empty) dict containing metadata for the counter event stream</p></li>
+<li><p><strong>events</strong> – A list of CounterEvent performance counter events. Shouldn’t be set in instantiation but by ‘add_event()’</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEventStream.class_version">
+<span class="sig-name descname"><span class="pre">class_version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1)</span></span><a class="headerlink" href="#hespas.event_counters.CounterEventStream.class_version" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEventStream.version">
+<span class="sig-name descname"><span class="pre">version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'0.0.1'</span></span><a class="headerlink" href="#hespas.event_counters.CounterEventStream.version" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEventStream.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#hespas.event_counters.CounterEventStream.metadata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEventStream.events">
+<span class="sig-name descname"><span class="pre">events</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="hespas.event_counters.event.html#hespas.event_counters.event.CounterEvent" title="hespas.event_counters.event.CounterEvent"><span class="pre">CounterEvent</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#hespas.event_counters.CounterEventStream.events" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEventStream.add_event">
+<span class="sig-name descname"><span class="pre">add_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.event_counters.event.html#hespas.event_counters.event.CounterEvent" title="hespas.event_counters.event.CounterEvent"><span class="pre">CounterEvent</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.event_counters.CounterEventStream.add_event" title="Link to this definition"></a></dt>
+<dd><p>This should be the standard interface for reporting Performance Counter Events. This will instantiate the
+underlying CounterEvent object, and add it to the list of events. To generate a CounterEventStream file,
+users should instantiate an object from this class and use ‘add_event()’ on it, then serialise the result.</p>
+<p>There are three main ways to use this function - using keywork arguments, passing a dict, or passing an
+instantiated CounterEvent.
+Using keyword arguments is the recommended interface as this allows both ‘timeunit’ and ‘metadata’ to be
+constructed from defaults rather then requiring all of the fields to be defined.
+Passing a dict directly calls CounterEvent.from_dict() with that dict, which uses the same pathway as
+deserialisation; and thus requires all fields to be present in the dict and does not allow ‘timeunit’
+and ‘metadata’ to be constructed from defaults. This is supported for consistency.
+Passing an instantiated CounterEvent will directly append it to the events list. Users are recommended
+to not directly instantiate their own CounterEvent objects, as they don’t have a use outside of a
+CounterEventStream but this exists as not supporting this case would be inconsistent.</p>
+<p>The keyword arguments to use are:
+‘event_name’: Name of this event. Required.
+‘timestamp’: The timestamp this event occured at. Required.
+‘timeunit’: The unit of time that the timestamp has. Optional, and the default is empty string
+‘metadata’: dict containing metadata for this event. Optional.</p>
+<p>If a dict is passed instead, the keys have the same name as the keyword arguments, but all are required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>new_event</strong> – Either an instantiated CounterEvent or a dict that can be used to create one. Optional.</p></li>
+<li><p><strong>kwargs</strong> – List of keyword arguments to use to instantiate a CounterEvent. Recommended usage.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEventStream.__ver_tuple_to_str">
+<span class="sig-name descname"><span class="pre">__ver_tuple_to_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#hespas.event_counters.CounterEventStream.__ver_tuple_to_str" title="Link to this definition"></a></dt>
+<dd><p>Private class convenience method to convert the current version tuple to a string (for serialisation)
+Shouldn’t be called manually.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>t</strong> – Version tuple to convert</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String representation of version tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEventStream.__ver_str_to_tuple">
+<span class="sig-name descname"><span class="pre">__ver_str_to_tuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.event_counters.CounterEventStream.__ver_str_to_tuple" title="Link to this definition"></a></dt>
+<dd><p>Private class convenience method to convert the current version string to a tuple (for comparison)
+Shouldn’t be called manually.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>s</strong> – Version string to convert</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Version tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.event_counters.CounterEventStream.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">events</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="hespas.event_counters.event.html#hespas.event_counters.event.CounterEvent" title="hespas.event_counters.event.CounterEvent"><span class="pre">CounterEvent</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#hespas.event_counters.CounterEventStream.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p class="rubric">Modules</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="hespas.event_counters.event.html#module-hespas.event_counters.event" title="hespas.event_counters.event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">event</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="hespas.event_counters.stream.html#module-hespas.event_counters.stream" title="hespas.event_counters.stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stream</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hespas.estimator.xla_estimator.html" class="btn btn-neutral float-left" title="hespas.estimator.xla_estimator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hespas.event_counters.event.html" class="btn btn-neutral float-right" title="hespas.event_counters.event" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

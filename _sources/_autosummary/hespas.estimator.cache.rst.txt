@@ -1,0 +1,12 @@
+hespas.estimator.cache
+======================
+
+.. automodule:: hespas.estimator.cache
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      CacheElement
+   

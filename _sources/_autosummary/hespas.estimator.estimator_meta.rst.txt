@@ -1,0 +1,12 @@
+hespas.estimator.estimator\_meta
+================================
+
+.. automodule:: hespas.estimator.estimator_meta
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      EstimatorMeta
+   

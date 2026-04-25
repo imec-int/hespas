@@ -1,0 +1,25 @@
+hespas.utils.logging
+====================
+
+.. automodule:: hespas.utils.logging
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      get_cur_log_level
+      get_divided_title
+      get_log_levels
+      get_str_divider
+      get_terminal_cols
+      logger_basic_config
+      print_divider
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      LogFormatter
+      Logger
+   

@@ -1,0 +1,12 @@
+hespas.event\_counters.stream
+=============================
+
+.. automodule:: hespas.event_counters.stream
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      CounterEventStream
+   

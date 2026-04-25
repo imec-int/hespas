@@ -1,0 +1,164 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hespas.estimator.estimator_meta &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hespas.estimator.result" href="hespas.estimator.result.html" />
+    <link rel="prev" title="hespas.estimator.estimator" href="hespas.estimator.estimator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hespas.html">hespas</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hespas.chakra_gen.html">hespas.chakra_gen</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="hespas.estimator.html">hespas.estimator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.cache.html">hespas.estimator.cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.check_available.html">hespas.estimator.check_available</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.choice.html">hespas.estimator.choice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.cocossim_estimator.html">hespas.estimator.cocossim_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.compute_estimator.html">hespas.estimator.compute_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.config_option.html">hespas.estimator.config_option</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.estimator.html">hespas.estimator.estimator</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hespas.estimator.estimator_meta</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator_meta.EstimatorMeta"><code class="docutils literal notranslate"><span class="pre">EstimatorMeta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.result.html">hespas.estimator.result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.roofline_estimator.html">hespas.estimator.roofline_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.run_config.html">hespas.estimator.run_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.xla_estimator.html">hespas.estimator.xla_estimator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.event_counters.html">hespas.event_counters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.hespas_chakra_gen.html">hespas.hespas_chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.mlir_parser.html">hespas.mlir_parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.statistics.html">hespas.statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.utils.html">hespas.utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hespas.html">hespas</a></li>
+          <li class="breadcrumb-item"><a href="hespas.estimator.html">hespas.estimator</a></li>
+      <li class="breadcrumb-item active">hespas.estimator.estimator_meta</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-hespas.estimator.estimator_meta">
+<span id="hespas-estimator-estimator-meta"></span><h1>hespas.estimator.estimator_meta<a class="headerlink" href="#module-hespas.estimator.estimator_meta" title="Link to this heading"></a></h1>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.estimator_meta.EstimatorMeta" title="hespas.estimator.estimator_meta.EstimatorMeta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EstimatorMeta</span></code></a>(name, bases, namespace)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.estimator.estimator_meta.EstimatorMeta">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator_meta.</span></span><span class="sig-name descname"><span class="pre">EstimatorMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.estimator_meta.EstimatorMeta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hespas.estimator.estimator.html" class="btn btn-neutral float-left" title="hespas.estimator.estimator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hespas.estimator.result.html" class="btn btn-neutral float-right" title="hespas.estimator.result" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

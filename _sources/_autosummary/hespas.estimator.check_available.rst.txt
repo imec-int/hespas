@@ -1,0 +1,18 @@
+hespas.estimator.check\_available
+=================================
+
+.. automodule:: hespas.estimator.check_available
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      check_programs
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      EstimatorNotAvailableError
+   

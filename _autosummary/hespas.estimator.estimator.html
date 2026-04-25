@@ -1,0 +1,1274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hespas.estimator.estimator &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hespas.estimator.estimator_meta" href="hespas.estimator.estimator_meta.html" />
+    <link rel="prev" title="hespas.estimator.config_option" href="hespas.estimator.config_option.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hespas.html">hespas</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hespas.chakra_gen.html">hespas.chakra_gen</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="hespas.estimator.html">hespas.estimator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.cache.html">hespas.estimator.cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.check_available.html">hespas.estimator.check_available</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.choice.html">hespas.estimator.choice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.cocossim_estimator.html">hespas.estimator.cocossim_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.compute_estimator.html">hespas.estimator.compute_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.config_option.html">hespas.estimator.config_option</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hespas.estimator.estimator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_op_handler"><code class="docutils literal notranslate"><span class="pre">register_op_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_default_op_handler"><code class="docutils literal notranslate"><span class="pre">register_default_op_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_pre_op_hook"><code class="docutils literal notranslate"><span class="pre">register_pre_op_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_post_op_hook"><code class="docutils literal notranslate"><span class="pre">register_post_op_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_pre_run_hook"><code class="docutils literal notranslate"><span class="pre">register_pre_run_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_post_run_hook"><code class="docutils literal notranslate"><span class="pre">register_post_run_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_pre_estimate_hook"><code class="docutils literal notranslate"><span class="pre">register_pre_estimate_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_post_estimate_hook"><code class="docutils literal notranslate"><span class="pre">register_post_estimate_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_module_metadata_hook"><code class="docutils literal notranslate"><span class="pre">register_module_metadata_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_cache_hit_hook"><code class="docutils literal notranslate"><span class="pre">register_cache_hit_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_cache_miss_hook"><code class="docutils literal notranslate"><span class="pre">register_cache_miss_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_metadata_hook"><code class="docutils literal notranslate"><span class="pre">register_metadata_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.register_init_hook"><code class="docutils literal notranslate"><span class="pre">register_init_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.estimator.Estimator"><code class="docutils literal notranslate"><span class="pre">Estimator</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.compute_estimator"><code class="docutils literal notranslate"><span class="pre">Estimator.compute_estimator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.conditions"><code class="docutils literal notranslate"><span class="pre">Estimator.conditions</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.allow_multiprocess"><code class="docutils literal notranslate"><span class="pre">Estimator.allow_multiprocess</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.cache_dir"><code class="docutils literal notranslate"><span class="pre">Estimator.cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.disable_cache"><code class="docutils literal notranslate"><span class="pre">Estimator.disable_cache</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.in_memory_only_cache"><code class="docutils literal notranslate"><span class="pre">Estimator.in_memory_only_cache</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.num_npus"><code class="docutils literal notranslate"><span class="pre">Estimator.num_npus</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__init__"><code class="docutils literal notranslate"><span class="pre">Estimator.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__setup_config_dict"><code class="docutils literal notranslate"><span class="pre">Estimator.__setup_config_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__configure"><code class="docutils literal notranslate"><span class="pre">Estimator.__configure()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_cache_writer"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_cache_writer()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__flush_outstanding_writes"><code class="docutils literal notranslate"><span class="pre">Estimator.__flush_outstanding_writes()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__close_executor"><code class="docutils literal notranslate"><span class="pre">Estimator.__close_executor()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__load_cache"><code class="docutils literal notranslate"><span class="pre">Estimator.__load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__write_cache"><code class="docutils literal notranslate"><span class="pre">Estimator.__write_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_hash"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_hash()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__create_new_cache_entry"><code class="docutils literal notranslate"><span class="pre">Estimator.__create_new_cache_entry()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_op_estimate_by_name"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_op_estimate_by_name()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_op_estimate"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_op_estimate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_op_estimates"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_op_estimates()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_op_estimate_list"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_op_estimate_list()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_per_op_module_result"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_per_op_module_result()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_estimator_run_result"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_estimator_run_result()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_estimator_cached_result"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_estimator_cached_result()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_estimator_result"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_estimator_result()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__init_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator.__init_hooks()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__pre_op_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator.__pre_op_hooks()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__post_op_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator.__post_op_hooks()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__pre_run_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator.__pre_run_hooks()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__post_run_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator.__post_run_hooks()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__pre_estimate_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator.__pre_estimate_hooks()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__post_estimate_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator.__post_estimate_hooks()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__cache_hit_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator.__cache_hit_hooks()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__cache_miss_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator.__cache_miss_hooks()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_module_metadata"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_module_metadata()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_module_statistics"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_module_statistics()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.__get_metadata"><code class="docutils literal notranslate"><span class="pre">Estimator.__get_metadata()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._get_whole_module_result"><code class="docutils literal notranslate"><span class="pre">Estimator._get_whole_module_result()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._add_event"><code class="docutils literal notranslate"><span class="pre">Estimator._add_event()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.get_metadata"><code class="docutils literal notranslate"><span class="pre">Estimator.get_metadata()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.get_statistics"><code class="docutils literal notranslate"><span class="pre">Estimator.get_statistics()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.write_cache"><code class="docutils literal notranslate"><span class="pre">Estimator.write_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.output_events"><code class="docutils literal notranslate"><span class="pre">Estimator.output_events()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.get_estimate"><code class="docutils literal notranslate"><span class="pre">Estimator.get_estimate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.run"><code class="docutils literal notranslate"><span class="pre">Estimator.run()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._cache_hit_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._cache_hit_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._cache_miss_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._cache_miss_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._init_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._init_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._metadata_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._metadata_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._module_metadata_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._module_metadata_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._op_handlers"><code class="docutils literal notranslate"><span class="pre">Estimator._op_handlers</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._post_estimate_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._post_estimate_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._post_op_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._post_op_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._post_run_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._post_run_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._pre_estimate_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._pre_estimate_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._pre_op_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._pre_op_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator._pre_run_hooks"><code class="docutils literal notranslate"><span class="pre">Estimator._pre_run_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.bases_order"><code class="docutils literal notranslate"><span class="pre">Estimator.bases_order</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.config_arguments"><code class="docutils literal notranslate"><span class="pre">Estimator.config_arguments</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.config_options"><code class="docutils literal notranslate"><span class="pre">Estimator.config_options</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.display_name"><code class="docutils literal notranslate"><span class="pre">Estimator.display_name</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.display_name_map"><code class="docutils literal notranslate"><span class="pre">Estimator.display_name_map</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.estimator.Estimator.main"><code class="docutils literal notranslate"><span class="pre">Estimator.main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.estimator_meta.html">hespas.estimator.estimator_meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.result.html">hespas.estimator.result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.roofline_estimator.html">hespas.estimator.roofline_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.run_config.html">hespas.estimator.run_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.xla_estimator.html">hespas.estimator.xla_estimator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.event_counters.html">hespas.event_counters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.hespas_chakra_gen.html">hespas.hespas_chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.mlir_parser.html">hespas.mlir_parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.statistics.html">hespas.statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.utils.html">hespas.utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hespas.html">hespas</a></li>
+          <li class="breadcrumb-item"><a href="hespas.estimator.html">hespas.estimator</a></li>
+      <li class="breadcrumb-item active">hespas.estimator.estimator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-hespas.estimator.estimator">
+<span id="hespas-estimator-estimator"></span><h1>hespas.estimator.estimator<a class="headerlink" href="#module-hespas.estimator.estimator" title="Link to this heading"></a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_cache_hit_hook" title="hespas.estimator.estimator.register_cache_hit_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_cache_hit_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a hook to call when the given module and hash hit in the cache.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_cache_miss_hook" title="hespas.estimator.estimator.register_cache_miss_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_cache_miss_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a hook to call when the given module and hash mises in the cache.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_default_op_handler" title="hespas.estimator.estimator.register_default_op_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_default_op_handler</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a stablehlo operator handler if no op handler can be found.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_init_hook" title="hespas.estimator.estimator.register_init_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_init_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as something to be called at object initialisation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_metadata_hook" title="hespas.estimator.estimator.register_metadata_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_metadata_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a hook to call to generate metadata for all the modules that have been estimated.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_module_metadata_hook" title="hespas.estimator.estimator.register_module_metadata_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_module_metadata_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a hook to call to generate metadata from the given ModuleResult to be used in the EstimatorResult.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_op_handler" title="hespas.estimator.estimator.register_op_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_op_handler</span></code></a>(op_names)</p></td>
+<td><p>Decorator that registers the current method as a stablehlo operator handler.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_post_estimate_hook" title="hespas.estimator.estimator.register_post_estimate_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_estimate_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a hook to call after estimating the module given as the first argument, and the result of estimation as its second argument.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_post_op_hook" title="hespas.estimator.estimator.register_post_op_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_op_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a hook to call after estimating the operator given as the first argument, and the result of the estion as its second argument.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_post_run_hook" title="hespas.estimator.estimator.register_post_run_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_run_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a hook to call after estimating the module given as the first argument, and the result of the estimation run as its second argument.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_pre_estimate_hook" title="hespas.estimator.estimator.register_pre_estimate_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_pre_estimate_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a hook to call before estimating the module given as the first argument.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_pre_op_hook" title="hespas.estimator.estimator.register_pre_op_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_pre_op_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a hook to call before estimating the operator given as the first argument.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.estimator.register_pre_run_hook" title="hespas.estimator.estimator.register_pre_run_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_pre_run_hook</span></code></a>(func)</p></td>
+<td><p>Decorator that registers the current method as a hook to call after estimating the module given as the first argument.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.estimator.Estimator" title="hespas.estimator.estimator.Estimator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Estimator</span></code></a>([hw_config])</p></td>
+<td><p>Base class for all Estimators.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_op_handler">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_op_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_op_handler" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a stablehlo operator handler.
+The wrapped method should take an OpInfo as the argument, and return an OpResult.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>op_names</strong> – Either a single string naming a StableHLO operator or a list of strings of StableHLO operator names</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Annotated method (will be used in class construction to determine the op handlers)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_default_op_handler">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_default_op_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_default_op_handler" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a stablehlo operator handler if no op handler can be found.
+The wrapped method should take an OpInfo as the argument, and return an OpResult.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to determine the op handlers)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_pre_op_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_pre_op_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_pre_op_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a hook to call before estimating the operator
+given as the first argument. It should not return anything, but may manipulate object fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to create the list of pre-op hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_post_op_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_post_op_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_post_op_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a hook to call after estimating the operator
+given as the first argument, and the result of the estion as its second argument.
+It should not return anything, but may manipulate object fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to create the list of post-op hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_pre_run_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_pre_run_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_pre_run_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a hook to call after estimating the module
+given as the first argument. It should not return anything, but may manipulate object fields.
+This hook is only called when an estimator is actually run for this module, and not when a cached
+result is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to create the list of pre-run hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_post_run_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_post_run_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.ModuleResult" title="hespas.estimator.result.ModuleResult"><span class="pre">ModuleResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.ModuleResult" title="hespas.estimator.result.ModuleResult"><span class="pre">ModuleResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_post_run_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a hook to call after estimating the module
+given as the first argument, and the result of the estimation run as its second argument.
+It should not return anything, but may manipulate object fields.
+This hook is only called when an estimator is actually run for this module, and not when a cached
+result is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to create the list of post-run hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_pre_estimate_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_pre_estimate_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_pre_estimate_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a hook to call before estimating the module
+given as the first argument. It should not return anything, but may manipulate object fields.
+This hook is called for every module that is estimated, included cached results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to create the list of pre-estimate hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_post_estimate_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_post_estimate_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.EstimatorResult" title="hespas.estimator.result.EstimatorResult"><span class="pre">EstimatorResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.EstimatorResult" title="hespas.estimator.result.EstimatorResult"><span class="pre">EstimatorResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_post_estimate_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a hook to call after estimating the module
+given as the first argument, and the result of estimation as its second argument.
+It should not return anything, but may manipulate object fields.
+This hook is called for every module that is estimated, included cached results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to create the list of post-estimate hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_module_metadata_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_module_metadata_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.ModuleResult" title="hespas.estimator.result.ModuleResult"><span class="pre">ModuleResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.ModuleResult" title="hespas.estimator.result.ModuleResult"><span class="pre">ModuleResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_module_metadata_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a hook to call to generate metadata from the given ModuleResult to be
+used in the EstimatorResult. This should return a (possibly empty) dict of metadata and it will be merged along with other
+registered metadata hooks. The statistics metadata should be specific to the module within the ModuleResult.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to create the list of metadata hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_cache_hit_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_cache_hit_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_cache_hit_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a hook to call when the given module and hash hit in the cache.
+It should not return anything, but may manipulate object fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to create the list of cache hit hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_cache_miss_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_cache_miss_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Never</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_cache_miss_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a hook to call when the given module and hash mises in the cache.
+It should not return anything, but may manipulate object fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to create the list of cache miss hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_metadata_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_metadata_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_metadata_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as a hook to call to generate metadata for all the modules that have been estimated.
+This should return a (possibly empty) dict of metadata and it will be merged along with other registered metadata hooks.
+The statistics metadata should be for all modules that have been estimated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction to create the list of metadata hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.register_init_hook">
+<span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">register_init_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.register_init_hook" title="Link to this definition"></a></dt>
+<dd><p>Decorator that registers the current method as something to be called at object initialisation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Annotated method (will be used in class construction tp create the list of init hooks)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.estimator.estimator.</span></span><span class="sig-name descname"><span class="pre">Estimator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hw_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.estimator.Estimator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for all Estimators. Handles configuration and running of the estimation.
+Deriving classes should decend from ComputeEstimator, which contains additional functionality
+relevant to most estimators, with this class being a direct implementation of the API itself.</p>
+<p>When an Estimator is called to estimate the runtime of an MLIR module, there are two classes of behaviour that the Estimator will follow depending on the
+method the new class registers.</p>
+<p>The <strong>&#64;register_op_handler decorator</strong> registers a specific method to handle one or more StableHLO operator names. This method should take a single OpInfo
+argument, and return an OpResult representing the runtime estimate of this specific operator, in the form</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@register_op_handler</span><span class="p">([</span><span class="s1">&#39;stablehlo.dot_general&#39;</span><span class="p">,</span> <span class="s1">&#39;stablehlo.dot&#39;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_dot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_info</span><span class="p">:</span> <span class="n">OpInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpResult</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>If a class registers one or more op handlers, or derives from a class that does; the Estimator will use the “per-op” behaviour. This takes a list of operators
+from an MLIR module, runs registered estimators for each operator found, and returns a result based on summing the runtime of all operators.
+Deriving classes dot need, and should not, specifically override any method to achieve this; but rather just register op handling functions using the
+decorator. Deriving classes can also register a default op handler if no handler is registered for the current op by using <strong>&#64;register_default_op_handler</strong>.
+If no op handlers are registered, the Estimator will instead use the “whole module” behaviour. This calls the method <strong>_get_whole_module_result()</strong>,
+which the deriving class should override with its own implementation, which should take a single MLIR module as its argument, and return
+a ModuleResult representing the runtime estimate of the module, in the form</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_get_whole_module_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">MLIRModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModuleResult</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>These are the only methods that are required to implement Estimator behaviour in the Compute API, as most of the behaviour is contained within the base class.
+Within API are additional methods for deriving classes to further implement behaviour and configuration</p>
+<p>To define configuration options for the new Estimator, instead of directly implementing configuring parsing, new Estimators should use ConfigOptions within the
+class definition, like so</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">NewEstimator</span><span class="p">(</span><span class="n">Estimator</span><span class="p">):</span>
+    <span class="n">new_config_option</span> <span class="o">=</span> <span class="n">ConfigOption</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A new configuration option with no default&quot;</span><span class="p">)</span>
+    <span class="n">new_default_config_option</span> <span class="o">=</span> <span class="n">ConfigOption</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A new configuration option with a default&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first argument should be a “validation” function which returns the validated/converted value (like int()), then all other arguments are optional.
+If no ‘default’ is specified, the Estimator will throw an error if this configuration option is not given unless the argument ‘optional’ is set to True.</p>
+<dl class="simple">
+<dt>The arguments for a ConfigOption are:</dt><dd><ul class="simple">
+<li><p>validation_func: Function to validate and return a validated value</p></li>
+<li><p>default: Default value (Optional)</p></li>
+<li><p>optional: Whether this value is optional. If a default is specified, this will default to True</p></li>
+<li><p>post_validate_func: Function to be called on the value after validation occurs (Optional)</p></li>
+<li><p>description: Human readable description of the config option. Use in the argparse argument parser generation</p></li>
+<li><p>top_level: Whether descending classes have this in a subdictionary in configuration or at a top level this does not change the field name
+within the instantiated class, but the arguments to the call to instantiate the class and the configuration dict that is fed in.</p></li>
+</ul>
+</dd>
+</dl>
+<p>During initialisation, each of these options will be assigned to ‘self.new_config_option’ and ‘self.new_default_config_option’ in the instantiated object.
+Classes that derive from this new estimator will also have these configuration options automatically added. The Estimator class itself also generates
+arguments to the class initialisation itself from these, as well as parsing of the configuration dict that can be passed in, and argparse arguments
+if the estimator is used directly as a module.</p>
+<p>There are additional methods and decorators to help with implementing Estimator functionality:</p>
+<dl class="simple">
+<dt>__post_init__()</dt><dd><p>Estimators should not override __init__, but rather if needed define a __post_init__ method that takes no arguments to perform additional
+initialisation. This will be called Estimator’s __init__ configuration is complete and the cache is loaded if enabled</p>
+</dd>
+<dt>_add_event()</dt><dd><p>Estimators should not override _add_event(), but derived classes should call it to add performance counter events to the current
+performance counter event stream, to be later written out with <strong>output_events()</strong></p>
+</dd>
+</dl>
+<p>There are a set of ‘hooks’ that are called a specific points in the estimation process, usually prior or subsequent to an estimation. As these registered
+methods are instance methods of the instantiated Estimator, these have access to the object’s fields and can be used to implement things like statistics
+or the generation of performance counter events. Multiple methods can be registered to occur when these hooks are called, and registered methods will be
+inherited from parent classes. The hooks will be called in the order they are registered, and in the order the parent classes are inheriented. As an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">OtherEstimator</span><span class="p">(</span><span class="n">Estimator</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="nd">@register_pre_run_hook</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">third_pre_run_hook</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">BaseEstimator</span><span class="p">(</span><span class="n">Estimator</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="nd">@register_pre_run_hook</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">new_pre_run_hook</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@register_pre_run_hook</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">second_pre_run_hook</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ChildEstimator</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">OtherEstimator</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="nd">@register_pre_run_hook</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">child_pre_run_hook</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>When the pre-run hooks are called for BaseEstimator, the order will be:</dt><dd><ol class="arabic simple">
+<li><p>new_pre_run_hook()</p></li>
+<li><p>second_pre_run_hook()</p></li>
+</ol>
+</dd>
+<dt>And in OtherEstimator:</dt><dd><ol class="arabic simple">
+<li><p>third_pre_run_hook()</p></li>
+</ol>
+</dd>
+<dt>And finally ChildEstimator:</dt><dd><ol class="arabic simple">
+<li><p>new_pre_run_hook()</p></li>
+<li><p>second_pre_run_hook()</p></li>
+<li><p>third_pre_run_hook()</p></li>
+<li><p>child_pre_run_hook()</p></li>
+</ol>
+</dd>
+</dl>
+<p>The current list of hooks are:</p>
+<dl class="simple">
+<dt>&#64;register_pre_op_hook</dt><dd><p>This registers a hook that will be run before an operator estimation is made. This will only be called
+for estimators that use the per-op behaviour. The registered method should take an OpInfo as its only argument, and not return anything.</p>
+</dd>
+<dt>&#64;register_post_op_hook</dt><dd><p>This registers a hook that will be run after an operator estimation is made. This will only be called for estimators that use the per-op
+behaviour. The registered method should take an OpInfo as its first argument, and an OpResult which represents the completed estimation
+of the operator given as its first argument as its second argument. It should not return.</p>
+</dd>
+<dt>&#64;register_pre_run_hook</dt><dd><p>This registers a hook that will be run before a module estimation is made, but not if the estimation is cached.
+The registered method should take a MLIRModule as its only argument, and not return anything.</p>
+</dd>
+<dt>&#64;register_post_run_hook</dt><dd><p>This registers a hook that will be run after a module estimation is made, but not if the estimation is cached.
+The registered method should take a MLIRModule as its first argument, and an ModuleResult as its second argument,
+which represents the completed estimation of the MLIR module given as its first argument. It should not return.</p>
+</dd>
+<dt>&#64;register_pre_estimate_hook</dt><dd><p>This registers a hook that will be run before a module estimation is made, regardless of caching.
+The registered method should take a MLIRModule as its only argument, and not return anything.</p>
+</dd>
+<dt>&#64;register_post_estimate_hook</dt><dd><p>This registers a hook that will be run after module estimation is made, regardless of caching.
+The registered method should take a MLIRModule as its first argument, and an EstimatorResult as its
+second argument, which represents the completed estimation of the MLIR module given as its first argument. 
+It should not return.</p>
+</dd>
+<dt>&#64;register_module_metadata_hook</dt><dd><p>This registers a hook that will be run when the per-module metadata are placed into the EstimatorResult.
+This only occurs when an estimation is actually run, and not if it is cached. This specific hook runs after the pre-run
+hooks, but before the post-run hooks. It should take a ModuleResult as its only argument, and return a dict
+containing a set of metadata to place with the EstimatorResult that is generated for this run. This dict will be merged
+with all other registered hooks, in the order the hooks are registered.</p>
+</dd>
+<dt>&#64;register_cache_hit_hook</dt><dd><p>This registers a hook that will be run on cache hits. The registered method should take a MLIRModule as its first argument,
+and the cache hash as a string for the module given as its first argument. It should not return.</p>
+</dd>
+<dt>&#64;register_cache_miss_hook</dt><dd><p>This registers a hook that will be run on cache misses. The registered method should take a MLIRModule as its first argument,
+and the cache hash as a string for the module given as its first argument. It should not return.</p>
+</dd>
+<dt>&#64;register_metadata_hook</dt><dd><p>This registers a hook that will be run when the public interface ‘get_metadata()’ is called.
+It should not take any arguments, and return a dict of metadata for all the estimations that have occured.
+This dict will be merged with all other registered hooks, in the order the hooks are registered.</p>
+</dd>
+</dl>
+<p>There are a set of public interface functions implemented as the common interface to interact with Estimators. Derived classes should
+avoid overriding these and keep them as the public interface, and prefer registering handlers and hooks to modify behaviour instead.
+The current set of public interfaces are:</p>
+<dl class="simple">
+<dt>get_estimate()</dt><dd><p>This is the main public interface to run an estimation. This takes an MLIRModule as its only argument to run, and triggers the entire
+estimation process. It results an EstimatorResult representing the estimation of its argument.</p>
+</dd>
+<dt>write_cache()</dt><dd><p>This is the public interface for writing the current cache state to the configured file. Does nothing if the cache is configured to be
+disabled. It should not be overriden by decending classes, but should be called if the estimator wants to specifically ensure the current
+cache state is saved.</p>
+</dd>
+<dt>get_metadata()</dt><dd><p>This is the public interface for accessing the metadata dict for the set of estimations this instantiated Estimator has performed.
+The specific content is not defined, but acts as a generic container. All registered metadata_hook functions are call when this interface
+is used, and their returned dicts are merged in order to produce the dict this method returns.</p>
+</dd>
+<dt>get_statistics()</dt><dd><p>This is the public interface for accessing the statistics tree for the set of estimations this instantiated Estimator has performed.</p>
+</dd>
+<dt>output_events()</dt><dd><p>This is the public interface to write the performance event counters that have been collected during the set of estimations that
+this instantiated Estimator has performed to a file. The specification of this file can be found in the CounterEventStream definition file.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.compute_estimator">
+<span class="sig-name descname"><span class="pre">compute_estimator</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.compute_estimator" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.conditions">
+<span class="sig-name descname"><span class="pre">conditions</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.conditions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.allow_multiprocess">
+<span class="sig-name descname"><span class="pre">allow_multiprocess</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.allow_multiprocess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.cache_dir">
+<span class="sig-name descname"><span class="pre">cache_dir</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.cache_dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.disable_cache">
+<span class="sig-name descname"><span class="pre">disable_cache</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.disable_cache" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.in_memory_only_cache">
+<span class="sig-name descname"><span class="pre">in_memory_only_cache</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.in_memory_only_cache" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.num_npus">
+<span class="sig-name descname"><span class="pre">num_npus</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.num_npus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hw_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__init__" title="Link to this definition"></a></dt>
+<dd><p>Common initialisation for all Estimators. Should not be overriden, handles common configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hw_config</strong> – Dictionary containing the configuration for this estimator. Optional, and will be overriden by anything in kwargs</p></li>
+<li><p><strong>kwargs</strong> – Dictionary of arguments to apply to this estimator’s config. The legal arguments are defined in the class’s config_arguments attribute</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__setup_config_dict">
+<span class="sig-name descname"><span class="pre">__setup_config_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__setup_config_dict" title="Link to this definition"></a></dt>
+<dd><p>Method that combines both the arguments given to the Estimator as well as its
+pass hw_config into a final dictionary that used for configuration. Checks
+for config argument existance, but not validity. Should not be overriden nor called manually.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_dict</strong> – hw_config dictionary passed to __init__()</p></li>
+<li><p><strong>kwargs</strong> – Override arguments passed to __init__()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Elaborated configuration dictionary with overrides applied for use in _configure()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__configure">
+<span class="sig-name descname"><span class="pre">__configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdict_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__configure" title="Link to this definition"></a></dt>
+<dd><p>Method that configures the current estimator. Each configuration option is checked for validity, and existence; and ensures that
+all required options are set. Since the configuration options are inherited, this method recursively evaluates and validates the sub-dictionaries
+within the current configuration dictionary. Each configuration option is set as an attribute. This method should not be overriden or
+manually called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_dict</strong> – The current input dictionary to explore. Any values that are themselves dictionaries will be explored recursively</p></li>
+<li><p><strong>config_options</strong> – The current set of valid options for this level.</p></li>
+<li><p><strong>subdict_path</strong> – The current path of subdictionaries that have been traversed. Used for error printing.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_cache_writer">
+<span class="sig-name descname"><span class="pre">__get_cache_writer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_cache_writer" title="Link to this definition"></a></dt>
+<dd><p>Sets up the cache writer executor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__flush_outstanding_writes">
+<span class="sig-name descname"><span class="pre">__flush_outstanding_writes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__flush_outstanding_writes" title="Link to this definition"></a></dt>
+<dd><p>Collects the outstanding cache futures and flushes them</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__close_executor">
+<span class="sig-name descname"><span class="pre">__close_executor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__close_executor" title="Link to this definition"></a></dt>
+<dd><p>Ensure the executor for cache writes is shut down</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__load_cache">
+<span class="sig-name descname"><span class="pre">__load_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__load_cache" title="Link to this definition"></a></dt>
+<dd><p>Loads the specified cache file to populate the cache, if it exists.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__write_cache">
+<span class="sig-name descname"><span class="pre">__write_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__write_cache" title="Link to this definition"></a></dt>
+<dd><p>Write the current cache state to the files within the directory specified as ‘cache_dir’.
+Should not be called externally or by descending classes - use the ‘write_cache()’ public interface instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hash</strong> – The specific cache element to write, or the entire cache if the param is None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_hash">
+<span class="sig-name descname"><span class="pre">__get_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_hash" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__create_new_cache_entry">
+<span class="sig-name descname"><span class="pre">__create_new_cache_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.EstimatorResult" title="hespas.estimator.result.EstimatorResult"><span class="pre">EstimatorResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.EstimatorResult" title="hespas.estimator.result.EstimatorResult"><span class="pre">EstimatorResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__create_new_cache_entry" title="Link to this definition"></a></dt>
+<dd><p>Creates a new cache entry with the current module, runtime estimate, and metadata. Write out (by default)
+Should not be overidden or called manually.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> – Module that this estimate was generated for</p></li>
+<li><p><strong>result</strong> – The estimation result generated from the Estimator</p></li>
+<li><p><strong>hash</strong> – Hash for this combination of hardware configuration and result. Performance optimisation, will be generated if not specified.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The estimation result that was cached</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_op_estimate_by_name">
+<span class="sig-name descname"><span class="pre">__get_op_estimate_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_op_estimate_by_name" title="Link to this definition"></a></dt>
+<dd><p>This method takes a operator name and anop_info object and generates an estimation result for the Estimators that use
+per-op estimation. If there is no handler found for the specific operator, the default handler is called. The default
+handler method can be overriden by using the &#64;register_default_op_handler decorator.
+This should not be called directly, but rather Estimators should use the &#64;register_op_handler decorator with one or
+more operator names to register handling methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op_name</strong> – The operator name to use to index the registered op_handlers</p></li>
+<li><p><strong>op_info</strong> – The operator to estimate the time for.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The estimation result for this operator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_op_estimate">
+<span class="sig-name descname"><span class="pre">__get_op_estimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_op_estimate" title="Link to this definition"></a></dt>
+<dd><p>This method takes an op_info object and generates an estimation result for the Estimators that use per-op estimation.
+If there is no handler found for the specific operator, the default handler is called. The default handler method can
+be overriden by using the &#64;register_default_op_handler decorator.
+This should not be called directly, but rather Estimators should use the &#64;register_op_handler decorator with one or
+more operator names to register handling methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>op_info</strong> – The operator to estimate the time for. A specific handler for that op will be called, or the default</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The estimation result for this operator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_op_estimates">
+<span class="sig-name descname"><span class="pre">__get_op_estimates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">op_info_list:</span> <span class="pre">[&lt;class</span> <span class="pre">'hespas.utils.op_info.OpInfo'&gt;]</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">[&lt;class</span> <span class="pre">'hespas.estimator.result.OpResult'&gt;]</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_op_estimates" title="Link to this definition"></a></dt>
+<dd><p>This method takes a list of operators and calls _get_op_estimate() on each one.
+Users should only use the &#64;register_op_handler decorator and not directly call this method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>op_info_list</strong> – List of operator objects to produce estimations for</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of estimations for the input operator list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_op_estimate_list">
+<span class="sig-name descname"><span class="pre">__get_op_estimate_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">op_info_list:</span> <span class="pre">[&lt;class</span> <span class="pre">'hespas.utils.op_info.OpInfo'&gt;]</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">[&lt;class</span> <span class="pre">'hespas.estimator.result.OpResult'&gt;]</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_op_estimate_list" title="Link to this definition"></a></dt>
+<dd><p>This method takes a list of operators and calls _get_op_estimate() on each one. It also calls pre-/post- hooks that
+are registered for operator estimations. It will return a list of estimation results for each operator.
+Users should only use the &#64;register_op_handler decorator and not directly call this method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>op_info_list</strong> – List of operator objects to produce estimations for</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of estimations for the input operator list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_per_op_module_result">
+<span class="sig-name descname"><span class="pre">__get_per_op_module_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.ModuleResult" title="hespas.estimator.result.ModuleResult"><span class="pre">ModuleResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_per_op_module_result" title="Link to this definition"></a></dt>
+<dd><p>This method takes a module, splits it into a list of operators, and then calls _get_op_estimate_list() to generate
+a list of estimation results for each operator. It should not be called or overriden by users, rather
+Estimators should register handling methods using the &#64;register_op_handler decorator. The list of operator
+estimations is directly use to instantiate the module result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module</strong> – Module to generate a list of operators from</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An estimation result for the whole module generated from the list of operator estimations</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_estimator_run_result">
+<span class="sig-name descname"><span class="pre">__get_estimator_run_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.EstimatorResult" title="hespas.estimator.result.EstimatorResult"><span class="pre">EstimatorResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_estimator_run_result" title="Link to this definition"></a></dt>
+<dd><p>This method takes a module, and runs per-op runtime estimations if any op handlers are defined, otherwise runs the whole
+module estimate. It also runs the pre-/post- hooks that are registers for each actual (non-cached) estimation run.
+This will also call get_metadata() and get_statistics() with the resultant ModuleResult in order to populate the metadata
+and statistics fields of the EstimatorResult.
+This method should not be directly called or overriden by users, rather either _get_whole_module_result() should be overriden
+or a set of op handling methods should be registered with &#64;register_op_handler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module</strong> – Module to generate the estimate for</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A estimation result for the input module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_estimator_cached_result">
+<span class="sig-name descname"><span class="pre">__get_estimator_cached_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">write</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.EstimatorResult" title="hespas.estimator.result.EstimatorResult"><span class="pre">EstimatorResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_estimator_cached_result" title="Link to this definition"></a></dt>
+<dd><p>This method takes a module and checks the cache to see if a matching module estimate has already been made. If it has, return
+that, otherwise do a new estimation run for the current module and write the result to the cache. It also record both
+cache hits and misses.This method should not be called directly or overridden by users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> – Module to look for in the cache, or if not found, generate a new estimation for</p></li>
+<li><p><strong>write</strong> – Write the cache to file each time the cache is written to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An completed estimation result</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_estimator_result">
+<span class="sig-name descname"><span class="pre">__get_estimator_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">write</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.EstimatorResult" title="hespas.estimator.result.EstimatorResult"><span class="pre">EstimatorResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_estimator_result" title="Link to this definition"></a></dt>
+<dd><p>This is the root method of starting an estimate. It will run the pre-/post- hooks that are run for every module, as well getting the
+estimation result for this module. If caching is enabled, it will attempt to get the result from the cache, otherwise it will
+run a new estimation every time. This method should not be overriden or directly called by users, rather _get_whole_module_estimate()
+should be overridden to specify an estimation that takes the entire module, or per-operator estimation handling method should be
+registered with &#64;register_op_handler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> – The module to generate an estimation for</p></li>
+<li><p><strong>write</strong> – Write the cache to file each time the cache is written to (ignored if the cache is disabled)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__init_hooks">
+<span class="sig-name descname"><span class="pre">__init_hooks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__init_hooks" title="Link to this definition"></a></dt>
+<dd><p>Runs the init hooks that have been registered. Should not be called directly or overriden,
+rather users should use the &#64;register_init_hook decorator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__pre_op_hooks">
+<span class="sig-name descname"><span class="pre">__pre_op_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__pre_op_hooks" title="Link to this definition"></a></dt>
+<dd><p>Runs the pre-operator estimation hooks that have been registered. Should not be called directly or overriden,
+rather users should use the &#64;register_pre_op_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>op_info</strong> – The operator that will be passed into the registered hooks</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__post_op_hooks">
+<span class="sig-name descname"><span class="pre">__post_op_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__post_op_hooks" title="Link to this definition"></a></dt>
+<dd><p>Runs the post-operator estimation hooks that have been registered. Should not be called directly or overriden,
+rather users should use the &#64;register_post_op_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op_info</strong> – The operator that will be passed into the registered hooks</p></li>
+<li><p><strong>result</strong> – The result of the operator estimation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__pre_run_hooks">
+<span class="sig-name descname"><span class="pre">__pre_run_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__pre_run_hooks" title="Link to this definition"></a></dt>
+<dd><p>Runs the pre-run estimation hooks that have been registered. Should not be called directly or overriden,
+rather users should use the &#64;register_pre_run_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module</strong> – The module that will be passed into the registered hooks</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__post_run_hooks">
+<span class="sig-name descname"><span class="pre">__post_run_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.ModuleResult" title="hespas.estimator.result.ModuleResult"><span class="pre">ModuleResult</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__post_run_hooks" title="Link to this definition"></a></dt>
+<dd><p>Runs the post-run estimation hooks that have been registered. Should not be called directly or overriden,
+rather users should use the &#64;register_post_run_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> – The module that will be passed into the registered hooks</p></li>
+<li><p><strong>result</strong> – The estimation result of the run</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__pre_estimate_hooks">
+<span class="sig-name descname"><span class="pre">__pre_estimate_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__pre_estimate_hooks" title="Link to this definition"></a></dt>
+<dd><p>Runs the pre-estimate hooks that have been registered. Should not be called directly or overriden,
+rather users should use the &#64;register_pre_estimate_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module</strong> – The module that will be passed into the registered hooks</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__post_estimate_hooks">
+<span class="sig-name descname"><span class="pre">__post_estimate_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.EstimatorResult" title="hespas.estimator.result.EstimatorResult"><span class="pre">EstimatorResult</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__post_estimate_hooks" title="Link to this definition"></a></dt>
+<dd><p>Runs the post-estimate hooks that have been registered. Should not be called directly or overriden,
+rather users should use the &#64;register_post_estimate_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> – The module that will be passed into the registered hooks</p></li>
+<li><p><strong>result</strong> – The result of the estimation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__cache_hit_hooks">
+<span class="sig-name descname"><span class="pre">__cache_hit_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__cache_hit_hooks" title="Link to this definition"></a></dt>
+<dd><p>Runs the cache hit hooks that have been registered. Should not be called directly or overriden,
+rather users should use the &#64;register_cache_hit_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> – The module that will be passed into the registered hooks</p></li>
+<li><p><strong>hash</strong> – The hash for this hardware config and module</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__cache_miss_hooks">
+<span class="sig-name descname"><span class="pre">__cache_miss_hooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__cache_miss_hooks" title="Link to this definition"></a></dt>
+<dd><p>Runs the cache miss hooks that have been registered. Should not be called directly or overriden,
+rather users should use the &#64;register_cache_miss_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> – The module that will be passed into the registered hooks</p></li>
+<li><p><strong>hash</strong> – The hash for this hardware config and module</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_module_metadata">
+<span class="sig-name descname"><span class="pre">__get_module_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.ModuleResult" title="hespas.estimator.result.ModuleResult"><span class="pre">ModuleResult</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_module_metadata" title="Link to this definition"></a></dt>
+<dd><p>Runs the per-module metadata generatation hooks that have been registered and merges
+the results from all of the hooks. Should not be called directly or overriden,
+rather users should use the &#64;register_module_metadata_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module_result</strong> – The module estimation result that will be passed into the registered hooks</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dict containing the metadata for this module’s estimation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_module_statistics">
+<span class="sig-name descname"><span class="pre">__get_module_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.ModuleResult" title="hespas.estimator.result.ModuleResult"><span class="pre">ModuleResult</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_module_statistics" title="Link to this definition"></a></dt>
+<dd><p>Returns the per-module stats, found in the ‘per_module’ subtree, for this module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module_result</strong> – The module estimation result to get the module name from</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dict containing the statistics for this module’s estimation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.__get_metadata">
+<span class="sig-name descname"><span class="pre">__get_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.__get_metadata" title="Link to this definition"></a></dt>
+<dd><p>Runs the metadata generatation hooks that have been registered and merges
+the results from all of the hooks. Returns a dict containing the metadata for all
+modules that have been estimated. Should not be called directly or should not be overriden,
+rather users should use the &#64;register_metadata_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dict containing the metadata for all of the modules that have been estimated</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._get_whole_module_result">
+<span class="sig-name descname"><span class="pre">_get_whole_module_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.ModuleResult" title="hespas.estimator.result.ModuleResult"><span class="pre">ModuleResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._get_whole_module_result" title="Link to this definition"></a></dt>
+<dd><p>This method takes a module and returns an estimation. This should be overriden by users in an Estimator that generates
+an estimation using the whole module (like the XLA estimator) to implement the estimation functionality. Besides taking
+a module as its input and returning an estimation result, the implemention is left to the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module</strong> – Module to generate the estimate for</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An estimation result for the whole module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._add_event">
+<span class="sig-name descname"><span class="pre">_add_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeunit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._add_event" title="Link to this definition"></a></dt>
+<dd><p>Interface to add a performance counter event to the current event stream. Should be called
+by descendent classes, but not overriden.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event_name</strong> – String specifying the name of the event</p></li>
+<li><p><strong>timestamp</strong> – Timestamp value of the event</p></li>
+<li><p><strong>timeunit</strong> – Optional unit for the timestamp</p></li>
+<li><p><strong>metadata</strong> – Optional metadata for this event</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.get_metadata">
+<span class="sig-name descname"><span class="pre">get_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.get_metadata" title="Link to this definition"></a></dt>
+<dd><p>Returns a dict containing the metadata for all modules that have been estimated.
+This is the public interface and should be called directly, but should not be overriden,
+rather users should use the &#64;register_metadata_hook decorator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dict containing the metadata for all of the modules that have been estimated</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.get_statistics">
+<span class="sig-name descname"><span class="pre">get_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.statistics.statistics.html#hespas.statistics.statistics.ContainerStatistic" title="hespas.statistics.statistics.ContainerStatistic"><span class="pre">ContainerStatistic</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.get_statistics" title="Link to this definition"></a></dt>
+<dd><p>Returns the root ContainerStatistic with all statistics collected by this estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A ContainerStatistic containing the statistics for all of the modules that have been estimated</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.write_cache">
+<span class="sig-name descname"><span class="pre">write_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.write_cache" title="Link to this definition"></a></dt>
+<dd><p>Writes the current state of the cache to the configured file if the cache has not been disabled,
+otherwise does nothing. This is the public interface for writing out the cache file and should
+be called directly, but should not be overriden.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.output_events">
+<span class="sig-name descname"><span class="pre">output_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.output_events" title="Link to this definition"></a></dt>
+<dd><p>Interface to write out the current set of performance counter events to file. Should be called by
+externally, but not overriden.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> – Path to the file to write the event counter file to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.get_estimate">
+<span class="sig-name descname"><span class="pre">get_estimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html#hespas.mlir_parser.mlir_module.MLIRModule" title="hespas.mlir_parser.mlir_module.MLIRModule"><span class="pre">MLIRModule</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.EstimatorResult" title="hespas.estimator.result.EstimatorResult"><span class="pre">EstimatorResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.get_estimate" title="Link to this definition"></a></dt>
+<dd><p>Public facing interface to run an estimation on the given module. Should be called
+directly as the primary interface to run an estimation. Should not be overriden.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module</strong> – The module to run an estimation for</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An EstimatorResult containing the runtime, metadata, and statistics</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.run">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hw_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mlir_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.EstimatorResult" title="hespas.estimator.result.EstimatorResult"><span class="pre">EstimatorResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.run" title="Link to this definition"></a></dt>
+<dd><p>Runs the estimator with the specified hardware config for a single MLIR file and returns the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hw_config</strong> – Hardware configuration dict for this estimator</p></li>
+<li><p><strong>mlir_file</strong> – MLIR module file to estimate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An EstimatorResult containing the results of estimation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._cache_hit_hooks">
+<span class="sig-name descname"><span class="pre">_cache_hit_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._cache_hit_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._cache_miss_hooks">
+<span class="sig-name descname"><span class="pre">_cache_miss_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._cache_miss_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._init_hooks">
+<span class="sig-name descname"><span class="pre">_init_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._init_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._metadata_hooks">
+<span class="sig-name descname"><span class="pre">_metadata_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._metadata_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._module_metadata_hooks">
+<span class="sig-name descname"><span class="pre">_module_metadata_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._module_metadata_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._op_handlers">
+<span class="sig-name descname"><span class="pre">_op_handlers</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._op_handlers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._post_estimate_hooks">
+<span class="sig-name descname"><span class="pre">_post_estimate_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._post_estimate_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._post_op_hooks">
+<span class="sig-name descname"><span class="pre">_post_op_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._post_op_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._post_run_hooks">
+<span class="sig-name descname"><span class="pre">_post_run_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._post_run_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._pre_estimate_hooks">
+<span class="sig-name descname"><span class="pre">_pre_estimate_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._pre_estimate_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._pre_op_hooks">
+<span class="sig-name descname"><span class="pre">_pre_op_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._pre_op_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator._pre_run_hooks">
+<span class="sig-name descname"><span class="pre">_pre_run_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator._pre_run_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.bases_order">
+<span class="sig-name descname"><span class="pre">bases_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.bases_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.config_arguments">
+<span class="sig-name descname"><span class="pre">config_arguments</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cache_dir':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'disable_cache':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'in_memory_only_cache':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'num_npus':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;}</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.config_arguments" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.config_options">
+<span class="sig-name descname"><span class="pre">config_options</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cache_dir':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'disable_cache':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'in_memory_only_cache':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'num_npus':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;}</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.config_options" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.display_name_map">
+<span class="sig-name descname"><span class="pre">display_name_map</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.display_name_map" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.estimator.Estimator.main">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Never</span></span></span><a class="headerlink" href="#hespas.estimator.estimator.Estimator.main" title="Link to this definition"></a></dt>
+<dd><p>Universal commandline interface for running an Estimator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> – An optional dict of args to use in arg parsing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hespas.estimator.config_option.html" class="btn btn-neutral float-left" title="hespas.estimator.config_option" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hespas.estimator.estimator_meta.html" class="btn btn-neutral float-right" title="hespas.estimator.estimator_meta" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

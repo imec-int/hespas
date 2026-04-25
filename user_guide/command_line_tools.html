@@ -1,0 +1,212 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Command Line Tools &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Estimators" href="estimators.html" />
+    <link rel="prev" title="Configuration" href="config.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command Line Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hespas-trace-generator">Hespas Trace Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#helper-tools">Helper Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mlir-splitter">MLIR Splitter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mlir-analyzer">MLIR Analyzer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/hespas.html">hespas</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Command Line Tools</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="command-line-tools">
+<h1>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Link to this heading"></a></h1>
+<section id="hespas-trace-generator">
+<h2>Hespas Trace Generator<a class="headerlink" href="#hespas-trace-generator" title="Link to this heading"></a></h2>
+<p>The main entry point for Hespas. It runs the full simulation flow: splitting the MLIR
+workload, estimating compute times, and generating <a class="reference external" href="https://github.com/imec-int/chakra">Chakra</a> execution traces. The compute
+estimator backend is specified in the configuration file.</p>
+<p><strong>Command:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hespas_chakra_gen</span> <span class="n">CONFIG_FILE</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--clean</span></code> — Clean output directory before generating traces</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--mlir_file</span> <span class="pre">MLIR_FILE</span></code> — Override the MLIR file specified in the config</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--num_npus</span> <span class="pre">NUM_NPUS</span></code> — Override the number of NPUs in the config</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--split_fn</span> <span class="pre">SPLIT_FN</span></code> — Override the split function to use</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--block_lim</span> <span class="pre">BLOCK_LIM</span></code> — Override block size limit for linear_split</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--merge</span></code> / <code class="docutils literal notranslate"><span class="pre">--no-merge</span></code> — Override merge setting in individual split</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--output</span> <span class="pre">OUTPUT</span></code> — Override the output directory in the config</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--threads</span> <span class="pre">THREADS</span></code> — Number of threads for splitting (0 = single-threaded, -1 = auto)</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hespas_chakra_gen</span> <span class="n">tests</span><span class="o">/</span><span class="n">fixtures</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span><span class="n">config_roofline_a100</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<p>The output directory contains the following files:</p>
+<dl class="simple">
+<dt>Split artifacts</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mini_module_&lt;id&gt;.mlir</span></code> — Individual StableHLO modules split and extracted from the input workload.
+Compute modules contain the operations to be estimated; communication modules contain
+collective operations (e.g. all-reduce).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mini_module_&lt;id&gt;.json</span></code> — Metadata for each MLIR module, including block type
+(<code class="docutils literal notranslate"><span class="pre">COMP_NODE</span></code> or <code class="docutils literal notranslate"><span class="pre">COMM_NODE</span></code>), input/output tensor dimensions, operator count,
+and the parent MLIR file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">private_functions.mlir</span></code> — Shared helper functions referenced by the mini modules.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dependency_graph.dot</span></code> — The dependency graph between
+modules in Graphviz DOT format.</p></li>
+</ul>
+</dd>
+<dt>Estimation results</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">module_stats.json</span></code> — The main results file. Contains per-module estimated runtimes,
+FLOPS counts, memory bytes, hardware utilization metrics (<code class="docutils literal notranslate"><span class="pre">flops_util</span></code>, <code class="docutils literal notranslate"><span class="pre">mem_bw_util</span></code>),
+and per-operator breakdowns. This is the primary file to inspect when debugging
+estimation accuracy.</p></li>
+</ul>
+</dd>
+<dt>Trace files</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dev.&lt;device_id&gt;.et</span></code> — Chakra execution traces, one per simulated device. These are
+the final output, ready to be consumed by ASTRA-sim for network simulation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">comm_group.json</span></code> — Communication group assignments mapping group IDs to device IDs.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The estimator backend used by <code class="docutils literal notranslate"><span class="pre">hespas_chakra_gen</span></code> is determined by the configuration file.
+Estimators can also be run independently — see <a class="reference internal" href="estimators.html"><span class="doc">Estimators</span></a> for details.</p>
+</div>
+</section>
+<section id="helper-tools">
+<h2>Helper Tools<a class="headerlink" href="#helper-tools" title="Link to this heading"></a></h2>
+<section id="mlir-splitter">
+<h3>MLIR Splitter<a class="headerlink" href="#mlir-splitter" title="Link to this heading"></a></h3>
+<p>Splits MLIR files into smaller modules based on communication and computation operations,
+without running estimation. Useful for inspecting the workload structure.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hespas_mlir_splitter</span> <span class="n">CONFIG_FILE</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Options: <code class="docutils literal notranslate"><span class="pre">--split_fn</span> <span class="pre">{linear_split,individual_split}</span></code>, <code class="docutils literal notranslate"><span class="pre">--block_lim</span> <span class="pre">BLOCK_LIM</span></code>, <code class="docutils literal notranslate"><span class="pre">--print_meta</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--log-level</span> <span class="pre">LOG_LEVEL</span></code></p>
+</section>
+<section id="mlir-analyzer">
+<h3>MLIR Analyzer<a class="headerlink" href="#mlir-analyzer" title="Link to this heading"></a></h3>
+<p>Analyzes MLIR files and provides statistics on StableHLO operator counts.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hespas_mlir_analyzer</span> <span class="n">MLIR_FILE</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Options: <code class="docutils literal notranslate"><span class="pre">-s</span></code> / <code class="docutils literal notranslate"><span class="pre">--input_sensitive</span></code> (input-sensitive operator matching),
+<code class="docutils literal notranslate"><span class="pre">-f</span></code> / <code class="docutils literal notranslate"><span class="pre">--format</span> <span class="pre">FORMAT</span></code> (table/csv output), <code class="docutils literal notranslate"><span class="pre">-e</span></code> / <code class="docutils literal notranslate"><span class="pre">--expand_func_calls</span></code>
+(expand function calls in the output)</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="config.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="estimators.html" class="btn btn-neutral float-right" title="Estimators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+hespas.chakra\_gen.chakra\_config
+=================================
+
+.. automodule:: hespas.chakra_gen.chakra_config
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ChakraGenConfig
+   

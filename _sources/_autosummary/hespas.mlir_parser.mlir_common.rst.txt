@@ -1,0 +1,32 @@
+hespas.mlir\_parser.mlir\_common
+================================
+
+.. automodule:: hespas.mlir_parser.mlir_common
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      add_classifier
+      append_private_functions
+      create_new_module_with_operations
+      get_dot_general_dimensions
+      get_external_inputs
+      get_external_outputs
+      is_communication_op
+      is_communication_op_str
+      is_convolution_op
+      is_dot_general_op
+      is_reduce_op
+      is_return_op
+      parse_replica_from_match
+      parse_replica_groups
+      store_private_functions
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      NodeType
+   

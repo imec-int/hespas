@@ -1,0 +1,21 @@
+hespas.utils.dict\_tools
+========================
+
+.. automodule:: hespas.utils.dict_tools
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      flatten_dict
+      print_subdict_path
+      recurse_merge
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      FloatDict
+      PositiveFloatDict
+   

@@ -1,0 +1,21 @@
+hespas.estimator.choice
+=======================
+
+.. automodule:: hespas.estimator.choice
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      unavailable
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      add_estimator_choice
+      estimator_available
+      get_conditions
+      get_estimator
+   

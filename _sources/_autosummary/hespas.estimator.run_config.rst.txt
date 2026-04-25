@@ -1,0 +1,13 @@
+hespas.estimator.run\_config
+============================
+
+.. automodule:: hespas.estimator.run_config
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      EstimatorRunConfig
+      EstimatorSingleRunConfig
+   

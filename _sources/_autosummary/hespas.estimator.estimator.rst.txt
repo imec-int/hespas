@@ -1,0 +1,30 @@
+hespas.estimator.estimator
+==========================
+
+.. automodule:: hespas.estimator.estimator
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      register_cache_hit_hook
+      register_cache_miss_hook
+      register_default_op_handler
+      register_init_hook
+      register_metadata_hook
+      register_module_metadata_hook
+      register_op_handler
+      register_post_estimate_hook
+      register_post_op_hook
+      register_post_run_hook
+      register_pre_estimate_hook
+      register_pre_op_hook
+      register_pre_run_hook
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Estimator
+   

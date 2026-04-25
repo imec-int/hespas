@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Hespas &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Architecture" href="architecture.html" />
+    <link rel="prev" title="Hespas Documentation" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Why Hespas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#one-workload-representation-multiple-backends">One Workload Representation, Multiple Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">StableHLO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/hespas.html">hespas</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Why Hespas</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="why-hespas">
+<h1>Why Hespas<a class="headerlink" href="#why-hespas" title="Link to this heading"></a></h1>
+<section id="one-workload-representation-multiple-backends">
+<h2>One Workload Representation, Multiple Backends<a class="headerlink" href="#one-workload-representation-multiple-backends" title="Link to this heading"></a></h2>
+<p>ML performance prediction is a multi-dimensional, cross-stack problem. Empirical
+evaluation across all combinations of models, compilers, and hardware is too costly.
+Meanwhile, the current simulation space is fragmented:</p>
+<ul class="simple">
+<li><p>Different simulators operate at different fidelity levels</p></li>
+<li><p>Different hardware architectures require different tools</p></li>
+<li><p>Different workload abstractions make cross-validation difficult</p></li>
+</ul>
+<p>This means workloads are reimplemented or approximated per tool, which makes comparison
+across hardware architectures less meaningful.</p>
+<p>Hespas takes a different approach: a single <a class="reference external" href="https://openxla.org/stablehlo">StableHLO</a> workload representation that works
+across a range backends.</p>
+<figure class="align-center" id="id2">
+<img alt="../_images/stablehlo_across_frameworks.svg" src="../_images/stablehlo_across_frameworks.svg" />
+<figcaption>
+<p><span class="caption-text">StableHLO: stable, framework and hardware agnostic workload representation</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>A StableHLO workload exported from a production ML framework JAX captures
+the actual computation graph, including collective communication for distributed
+training. From this single representation, Hespas can:</p>
+<ul class="simple">
+<li><p><strong>Profile on real hardware</strong> — compile and execute via XLA or IREE to obtain measured
+runtimes on GPUs.</p></li>
+<li><p><strong>Estimate analytically</strong> — apply a roofline model for fast, hardware-free exploration.</p></li>
+<li><p><strong>Simulate</strong> — feed into architectural simulators like COCOSSim or ONNXim for detailed bottleneck
+analysis.</p></li>
+</ul>
+<p>The workload stays the same across all fidelity levels.</p>
+</section>
+<section id="id1">
+<h2>StableHLO<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<figure class="align-center" id="id3">
+<img alt="../_images/workload_repr_ecosystem.png" src="../_images/workload_repr_ecosystem.png" />
+<figcaption>
+<p><span class="caption-text">Workload abstraction levels</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Unlike configuration-based descriptions that target narrow workload classes, or
+trace-based formats that require prior execution, StableHLO offers several advantages:</p>
+<ul class="simple">
+<li><p>A real, compiler-compatible IR exported from production frameworks</p></li>
+<li><p>Explicit collective communication operators for distributed training</p></li>
+<li><p>Compiler optimizations can be applied before estimation</p></li>
+<li><p>Framework-agnostic: works with JAX, PyTorch/XLA, and other OpenXLA frontends</p></li>
+<li><p>Ahead-of-time: the workload can be obtained without access to target hardware</p></li>
+</ul>
+<p>Hespas currently uses JAX as the primary frontend for exporting StableHLO workloads.
+JAX is particularly well suited for this purpose:</p>
+<ul class="simple">
+<li><p><strong>SPMD-first by default</strong> — distributed parallelism is a core part of the programming model</p></li>
+<li><p><strong>One global, static program</strong> — the entire computation is expressed as a single program</p></li>
+<li><p><strong>Static parallelism via XLA and StableHLO</strong> — parallelization decisions are made at compile time, producing a deterministic workload representation that is easy to analyze</p></li>
+<li><p><strong>TPU support</strong> — enables cross-architecture studies alongside GPUs</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Hespas Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

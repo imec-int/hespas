@@ -1,0 +1,18 @@
+hespas.estimator.compute\_estimator
+===================================
+
+.. automodule:: hespas.estimator.compute_estimator
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ComputeEstimator
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      InvalidOpError
+   

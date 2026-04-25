@@ -1,0 +1,12 @@
+hespas.utils.serialisable
+=========================
+
+.. automodule:: hespas.utils.serialisable
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Serialisable
+   

@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hespas.estimator.roofline_estimator &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hespas.estimator.run_config" href="hespas.estimator.run_config.html" />
+    <link rel="prev" title="hespas.estimator.result" href="hespas.estimator.result.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hespas.html">hespas</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hespas.chakra_gen.html">hespas.chakra_gen</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="hespas.estimator.html">hespas.estimator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.cache.html">hespas.estimator.cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.check_available.html">hespas.estimator.check_available</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.choice.html">hespas.estimator.choice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.cocossim_estimator.html">hespas.estimator.cocossim_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.compute_estimator.html">hespas.estimator.compute_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.config_option.html">hespas.estimator.config_option</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.estimator.html">hespas.estimator.estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.estimator_meta.html">hespas.estimator.estimator_meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.result.html">hespas.estimator.result</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hespas.estimator.roofline_estimator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineMissingDatatypeError"><code class="docutils literal notranslate"><span class="pre">RooflineMissingDatatypeError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.allow_multiprocess"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.allow_multiprocess</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.peak_flops"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.peak_flops</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.memory_bandwidth"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.memory_bandwidth</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.tdp_W"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.tdp_W</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.hbm_power_ratio"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.hbm_power_ratio</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.per_datatype_flops"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.per_datatype_flops</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.warn_on_unknown_type"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.warn_on_unknown_type</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.error_on_unknown_type"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.error_on_unknown_type</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_datatype_str"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__get_datatype_str()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_datatype_str_by_op"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__get_datatype_str_by_op()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops_by_datatype_str"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__get_flops_by_datatype_str()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops_by_datatype"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__get_flops_by_datatype()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.TENSOR_CORE_OPS"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.TENSOR_CORE_OPS</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.TENSOR_CORE_PROMOTIONS"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.TENSOR_CORE_PROMOTIONS</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops_by_op"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__get_flops_by_op()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__get_flops()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.compute_runtime"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.compute_runtime()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__add_roofline_stats"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__add_roofline_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__setup_roofline_stats"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__setup_roofline_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__setup_module_roofline_stats"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__setup_module_roofline_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__setup_per_op_roofline_stats"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__setup_per_op_roofline_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_per_op_stats"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__get_per_op_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__add_per_datatype_tree"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__add_per_datatype_tree()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__merge_lower_stats_tree"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__merge_lower_stats_tree()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_bytes_flops"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__get_bytes_flops()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_module_bytes_flops"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__get_module_bytes_flops()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_total_bytes_flops"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.__get_total_bytes_flops()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_elementwise_binary"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_elementwise_binary()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_clamp"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_clamp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_free_ops"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_free_ops()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_noflop_ops"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_noflop_ops()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_concatenate"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_concatenate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_gather"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_gather()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_scatter"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_scatter()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_convolution"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_convolution()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_unary_elemwise"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_unary_elemwise()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_select"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_select()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_reduce"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_reduce()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_reduce_window"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_reduce_window()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_select_and_scatter"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_select_and_scatter()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_sort"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_sort()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_dot_general"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_dot_general()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_ragged_dot"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_ragged_dot()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_slice_ops"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_slice_ops()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_dynamic_update_slice"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_dynamic_update_slice()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_fusion"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_fusion()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_custom_call"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.handle_custom_call()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._cache_hit_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._cache_hit_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._cache_miss_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._cache_miss_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._default_op_handler"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._default_op_handler()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._init_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._init_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._metadata_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._metadata_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._module_metadata_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._module_metadata_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._op_handlers"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._op_handlers</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._post_estimate_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._post_estimate_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._post_op_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._post_op_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._post_run_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._post_run_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._pre_estimate_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._pre_estimate_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._pre_op_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._pre_op_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator._pre_run_hooks"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator._pre_run_hooks</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.bases_order"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.bases_order</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.config_arguments"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.config_arguments</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.config_options"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.config_options</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.display_name"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.display_name</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator.display_name_map"><code class="docutils literal notranslate"><span class="pre">RooflineEstimator.display_name_map</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.run_config.html">hespas.estimator.run_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.estimator.xla_estimator.html">hespas.estimator.xla_estimator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.event_counters.html">hespas.event_counters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.hespas_chakra_gen.html">hespas.hespas_chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.mlir_parser.html">hespas.mlir_parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.statistics.html">hespas.statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.utils.html">hespas.utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hespas.html">hespas</a></li>
+          <li class="breadcrumb-item"><a href="hespas.estimator.html">hespas.estimator</a></li>
+      <li class="breadcrumb-item active">hespas.estimator.roofline_estimator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-hespas.estimator.roofline_estimator">
+<span id="hespas-estimator-roofline-estimator"></span><h1>hespas.estimator.roofline_estimator<a class="headerlink" href="#module-hespas.estimator.roofline_estimator" title="Link to this heading"></a></h1>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineEstimator" title="hespas.estimator.roofline_estimator.RooflineEstimator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RooflineEstimator</span></code></a>([hw_config])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Exceptions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.estimator.roofline_estimator.RooflineMissingDatatypeError" title="hespas.estimator.roofline_estimator.RooflineMissingDatatypeError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RooflineMissingDatatypeError</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py exception">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineMissingDatatypeError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.estimator.roofline_estimator.</span></span><span class="sig-name descname"><span class="pre">RooflineMissingDatatypeError</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineMissingDatatypeError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.estimator.roofline_estimator.</span></span><span class="sig-name descname"><span class="pre">RooflineEstimator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hw_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="hespas.estimator.compute_estimator.html#hespas.estimator.compute_estimator.ComputeEstimator" title="hespas.estimator.compute_estimator.ComputeEstimator"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputeEstimator</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.allow_multiprocess">
+<span class="sig-name descname"><span class="pre">allow_multiprocess</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.allow_multiprocess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.peak_flops">
+<span class="sig-name descname"><span class="pre">peak_flops</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.peak_flops" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.memory_bandwidth">
+<span class="sig-name descname"><span class="pre">memory_bandwidth</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.memory_bandwidth" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.tdp_W">
+<span class="sig-name descname"><span class="pre">tdp_W</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.tdp_W" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.hbm_power_ratio">
+<span class="sig-name descname"><span class="pre">hbm_power_ratio</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.hbm_power_ratio" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.per_datatype_flops">
+<span class="sig-name descname"><span class="pre">per_datatype_flops</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.per_datatype_flops" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.warn_on_unknown_type">
+<span class="sig-name descname"><span class="pre">warn_on_unknown_type</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.warn_on_unknown_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.error_on_unknown_type">
+<span class="sig-name descname"><span class="pre">error_on_unknown_type</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.error_on_unknown_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__get_datatype_str">
+<span class="sig-name descname"><span class="pre">__get_datatype_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datatype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_datatype_str" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__get_datatype_str_by_op">
+<span class="sig-name descname"><span class="pre">__get_datatype_str_by_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_datatype_str_by_op" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops_by_datatype_str">
+<span class="sig-name descname"><span class="pre">__get_flops_by_datatype_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datatype_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops_by_datatype_str" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops_by_datatype">
+<span class="sig-name descname"><span class="pre">__get_flops_by_datatype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datatype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops_by_datatype" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.TENSOR_CORE_OPS">
+<span class="sig-name descname"><span class="pre">TENSOR_CORE_OPS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'stablehlo.convolution',</span> <span class="pre">'stablehlo.dot_general'})</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.TENSOR_CORE_OPS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.TENSOR_CORE_PROMOTIONS">
+<span class="sig-name descname"><span class="pre">TENSOR_CORE_PROMOTIONS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'f32':</span> <span class="pre">'tf32'}</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.TENSOR_CORE_PROMOTIONS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops_by_op">
+<span class="sig-name descname"><span class="pre">__get_flops_by_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops_by_op" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops">
+<span class="sig-name descname"><span class="pre">__get_flops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_flops" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.compute_runtime">
+<span class="sig-name descname"><span class="pre">compute_runtime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bytes_accessed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.compute_runtime" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__add_roofline_stats">
+<span class="sig-name descname"><span class="pre">__add_roofline_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stats_tree</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__add_roofline_stats" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__setup_roofline_stats">
+<span class="sig-name descname"><span class="pre">__setup_roofline_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__setup_roofline_stats" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__setup_module_roofline_stats">
+<span class="sig-name descname"><span class="pre">__setup_module_roofline_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__setup_module_roofline_stats" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__setup_per_op_roofline_stats">
+<span class="sig-name descname"><span class="pre">__setup_per_op_roofline_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__setup_per_op_roofline_stats" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__get_per_op_stats">
+<span class="sig-name descname"><span class="pre">__get_per_op_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_per_op_stats" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__add_per_datatype_tree">
+<span class="sig-name descname"><span class="pre">__add_per_datatype_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stats_tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datatype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__add_per_datatype_tree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__merge_lower_stats_tree">
+<span class="sig-name descname"><span class="pre">__merge_lower_stats_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">upper_stats_tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_stats_tree</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__merge_lower_stats_tree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__get_bytes_flops">
+<span class="sig-name descname"><span class="pre">__get_bytes_flops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stats_tree</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_bytes_flops" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__get_module_bytes_flops">
+<span class="sig-name descname"><span class="pre">__get_module_bytes_flops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_module_bytes_flops" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.__get_total_bytes_flops">
+<span class="sig-name descname"><span class="pre">__get_total_bytes_flops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.__get_total_bytes_flops" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_elementwise_binary">
+<span class="sig-name descname"><span class="pre">handle_elementwise_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_elementwise_binary" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_clamp">
+<span class="sig-name descname"><span class="pre">handle_clamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_clamp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_free_ops">
+<span class="sig-name descname"><span class="pre">handle_free_ops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_free_ops" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_noflop_ops">
+<span class="sig-name descname"><span class="pre">handle_noflop_ops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_noflop_ops" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_concatenate">
+<span class="sig-name descname"><span class="pre">handle_concatenate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_concatenate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_gather">
+<span class="sig-name descname"><span class="pre">handle_gather</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_gather" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_scatter">
+<span class="sig-name descname"><span class="pre">handle_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_scatter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_convolution">
+<span class="sig-name descname"><span class="pre">handle_convolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_convolution" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_unary_elemwise">
+<span class="sig-name descname"><span class="pre">handle_unary_elemwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_unary_elemwise" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_select">
+<span class="sig-name descname"><span class="pre">handle_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_select" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_reduce">
+<span class="sig-name descname"><span class="pre">handle_reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_reduce" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_reduce_window">
+<span class="sig-name descname"><span class="pre">handle_reduce_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_reduce_window" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_select_and_scatter">
+<span class="sig-name descname"><span class="pre">handle_select_and_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_select_and_scatter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_sort">
+<span class="sig-name descname"><span class="pre">handle_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_sort" title="Link to this definition"></a></dt>
+<dd><p>Roofline model of an operator that,
+sorts 1-dimensional slices of inputs along a dimension together.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_dot_general">
+<span class="sig-name descname"><span class="pre">handle_dot_general</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_dot_general" title="Link to this definition"></a></dt>
+<dd><p>Calculate FLOPs for StableHLO dot_general operation.</p>
+<p>FLOP Calculation:
+- For each output element, we perform a dot product across contracting dimensions
+- Each dot product involves: product(contracting_dims) multiply-add operations
+- Each multiply-add = 2 FLOPs (1 multiply + 1 add)
+- Total FLOPs = 2 x product(output_shape) xx product(contracting_dimension_sizes)</p>
+<p>Example: Matrix multiplication A[M,K] x B[K,N] = C[M,N]
+- Output elements: M x N
+- Contracting dimension size: K
+- FLOPs = 2 x M x N x K</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_ragged_dot">
+<span class="sig-name descname"><span class="pre">handle_ragged_dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_ragged_dot" title="Link to this definition"></a></dt>
+<dd><p>Ragged dot uses a new group dimension for the ragged dimension,
+for example in mode 1 the ragged dimension is M, it will be split into G groups
+each value of the group dimension tensor corresponding to how many rows of M go to each group.
+It has 3 modes each mode considers a different dimension as the ragged one (m, k, b) respectively.
+- if mode 1 apply dot_general roofline
+- if mode 2 assume average of k = K/G (this is the only case where ragged can reduce FLOPS)
+- if mode 3 assume all batches are used, so apply dot_general roofline
+Signatures for modes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>1 [b,m,k], [g,b,k,n], [b,g] -&gt; [b,m,n]</p></li>
+<li><p>2 [b,m,k], [b,k,n],   [b,g] -&gt; [g,b,m,n]</p></li>
+<li><p>3 [b,m,k], [b,k,n],   [g]   -&gt; [b,m,n]</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_slice_ops">
+<span class="sig-name descname"><span class="pre">handle_slice_ops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_slice_ops" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_dynamic_update_slice">
+<span class="sig-name descname"><span class="pre">handle_dynamic_update_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_dynamic_update_slice" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_fusion">
+<span class="sig-name descname"><span class="pre">handle_fusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_fusion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.handle_custom_call">
+<span class="sig-name descname"><span class="pre">handle_custom_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.handle_custom_call" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._cache_hit_hooks">
+<span class="sig-name descname"><span class="pre">_cache_hit_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">ComputeEstimator.__count_cache_hits&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">ComputeEstimator.__get_cached_module_times&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">ComputeEstimator.__print_cached_runtime&gt;]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._cache_hit_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._cache_miss_hooks">
+<span class="sig-name descname"><span class="pre">_cache_miss_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._cache_miss_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._default_op_handler">
+<span class="sig-name descname"><span class="pre">_default_op_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hespas.utils.op_info.html#hespas.utils.op_info.OpInfo" title="hespas.utils.op_info.OpInfo"><span class="pre">OpInfo</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="hespas.estimator.result.html#hespas.estimator.result.OpResult" title="hespas.estimator.result.OpResult"><span class="pre">OpResult</span></a></span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._default_op_handler" title="Link to this definition"></a></dt>
+<dd><p>This is a default for descended classes that an exception is thrown if the operator isn’t known.
+This can be overriden through the &#64;register_default_op_handler decorator, but not directly.
+This should not be directly overidden or called manually.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>op_info</strong> – The operator to estimate the time of. This method will not estimate, and just throw an exception</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The result of the estimator for this operator (to match the type of operator estimators - will not return)</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="hespas.estimator.compute_estimator.html#hespas.estimator.compute_estimator.InvalidOpError" title="hespas.estimator.compute_estimator.InvalidOpError"><strong>InvalidOpError</strong></a> – Raises an InvalidOpError for any unknown operator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._init_hooks">
+<span class="sig-name descname"><span class="pre">_init_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">RooflineEstimator.__setup_roofline_stats&gt;]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._init_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._metadata_hooks">
+<span class="sig-name descname"><span class="pre">_metadata_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._metadata_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._module_metadata_hooks">
+<span class="sig-name descname"><span class="pre">_module_metadata_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._module_metadata_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._op_handlers">
+<span class="sig-name descname"><span class="pre">_op_handlers</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'func.call':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'func.return':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'mhlo.bitcast':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_noflop_ops&gt;,</span> <span class="pre">'mhlo.copy':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_noflop_ops&gt;,</span> <span class="pre">'mhlo.fusion':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_fusion&gt;,</span> <span class="pre">'mhlo.ragged_dot':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_ragged_dot&gt;,</span> <span class="pre">'mhlo.return':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.abs':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.add':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_elementwise_binary&gt;,</span> <span class="pre">'stablehlo.and':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_elementwise_binary&gt;,</span> <span class="pre">'stablehlo.broadcast_in_dim':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_noflop_ops&gt;,</span> <span class="pre">'stablehlo.clamp':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_clamp&gt;,</span> <span class="pre">'stablehlo.compare':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_elementwise_binary&gt;,</span> <span class="pre">'stablehlo.complex':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.concatenate':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_concatenate&gt;,</span> <span class="pre">'stablehlo.constant':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.convert':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.convolution':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_convolution&gt;,</span> <span class="pre">'stablehlo.cosine':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.custom_call':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_custom_call&gt;,</span> <span class="pre">'stablehlo.divide':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_elementwise_binary&gt;,</span> <span class="pre">'stablehlo.dot':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_dot_general&gt;,</span> <span class="pre">'stablehlo.dot_general':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_dot_general&gt;,</span> <span class="pre">'stablehlo.dynamic_slice':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_slice_ops&gt;,</span> <span class="pre">'stablehlo.dynamic_update_slice':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_dynamic_update_slice&gt;,</span> <span class="pre">'stablehlo.exponential':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.gather':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_gather&gt;,</span> <span class="pre">'stablehlo.get_tuple_element':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.imag':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.iota':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.is_finite':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.log':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.logistic':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.maximum':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_elementwise_binary&gt;,</span> <span class="pre">'stablehlo.minimum':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_elementwise_binary&gt;,</span> <span class="pre">'stablehlo.multiply':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_elementwise_binary&gt;,</span> <span class="pre">'stablehlo.negate':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.not':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.optimization_barrier':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.or':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_elementwise_binary&gt;,</span> <span class="pre">'stablehlo.pad':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_noflop_ops&gt;,</span> <span class="pre">'stablehlo.partition_id':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.power':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.real':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.reduce':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_reduce&gt;,</span> <span class="pre">'stablehlo.reduce_precision':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_noflop_ops&gt;,</span> <span class="pre">'stablehlo.reduce_window':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_reduce_window&gt;,</span> <span class="pre">'stablehlo.replica_id':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.reshape':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_noflop_ops&gt;,</span> <span class="pre">'stablehlo.return':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_free_ops&gt;,</span> <span class="pre">'stablehlo.reverse':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_noflop_ops&gt;,</span> <span class="pre">'stablehlo.round_nearest_even':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.rsqrt':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.scatter':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_scatter&gt;,</span> <span class="pre">'stablehlo.select':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_select&gt;,</span> <span class="pre">'stablehlo.select_and_scatter':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_select_and_scatter&gt;,</span> <span class="pre">'stablehlo.sign':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.sine':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.slice':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_slice_ops&gt;,</span> <span class="pre">'stablehlo.sort':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_sort&gt;,</span> <span class="pre">'stablehlo.sqrt':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.subtract':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_elementwise_binary&gt;,</span> <span class="pre">'stablehlo.tanh':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_unary_elemwise&gt;,</span> <span class="pre">'stablehlo.transpose':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_noflop_ops&gt;,</span> <span class="pre">'stablehlo.xor':</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.handle_elementwise_binary&gt;}</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._op_handlers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._post_estimate_hooks">
+<span class="sig-name descname"><span class="pre">_post_estimate_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">ComputeEstimator.__setup_per_op_tree&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">ComputeEstimator.__get_total_estimate_time&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">ComputeEstimator.__get_total_runtime&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">ComputeEstimator.__count_processed&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">ComputeEstimator.__get_per_op_runtime&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.__get_total_bytes_flops&gt;]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._post_estimate_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._post_op_hooks">
+<span class="sig-name descname"><span class="pre">_post_op_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">ComputeEstimator.__get__module_op_times&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.__get_per_op_stats&gt;]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._post_op_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._post_run_hooks">
+<span class="sig-name descname"><span class="pre">_post_run_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">ComputeEstimator.__get_module_runtime&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">ComputeEstimator.__module_run_end_time&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">ComputeEstimator.__print_run_runtime&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.__get_module_bytes_flops&gt;]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._post_run_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._pre_estimate_hooks">
+<span class="sig-name descname"><span class="pre">_pre_estimate_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">ComputeEstimator.__setup_per_module_stat_tree&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">ComputeEstimator.__total_estimate_start_time&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">ComputeEstimator.__print_start_line&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.__setup_module_roofline_stats&gt;]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._pre_estimate_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._pre_op_hooks">
+<span class="sig-name descname"><span class="pre">_pre_op_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">ComputeEstimator.__setup_per_op_stat_tree&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">RooflineEstimator.__setup_per_op_roofline_stats&gt;]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._pre_op_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator._pre_run_hooks">
+<span class="sig-name descname"><span class="pre">_pre_run_hooks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">ComputeEstimator.__module_run_start_time&gt;]</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator._pre_run_hooks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.bases_order">
+<span class="sig-name descname"><span class="pre">bases_order</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'compute':</span> <span class="pre">0}</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.bases_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.config_arguments">
+<span class="sig-name descname"><span class="pre">config_arguments</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cache_dir':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'disable_cache':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'error_on_unknown_type':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'hbm_power_ratio':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'in_memory_only_cache':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'memory_bandwidth':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'num_npus':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'peak_flops':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'per_datatype_flops':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'tdp_W':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'type':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'warn_on_unknown_type':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;}</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.config_arguments" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.config_options">
+<span class="sig-name descname"><span class="pre">config_options</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cache_dir':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'disable_cache':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'error_on_unknown_type':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'hbm_power_ratio':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'in_memory_only_cache':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'memory_bandwidth':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'num_npus':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'peak_flops':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'per_datatype_flops':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'tdp_W':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'type':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;,</span> <span class="pre">'warn_on_unknown_type':</span> <span class="pre">&lt;hespas.estimator.config_option.ConfigOption</span> <span class="pre">object&gt;}</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.config_options" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'roofline'</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.estimator.roofline_estimator.RooflineEstimator.display_name_map">
+<span class="sig-name descname"><span class="pre">display_name_map</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'compute':</span> <span class="pre">&lt;class</span> <span class="pre">'hespas.estimator.compute_estimator.ComputeEstimator'&gt;}</span></span><a class="headerlink" href="#hespas.estimator.roofline_estimator.RooflineEstimator.display_name_map" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hespas.estimator.result.html" class="btn btn-neutral float-left" title="hespas.estimator.result" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hespas.estimator.run_config.html" class="btn btn-neutral float-right" title="hespas.estimator.run_config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+﻿hespas.statistics
+=================
+
+.. automodule:: hespas.statistics
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   statistics

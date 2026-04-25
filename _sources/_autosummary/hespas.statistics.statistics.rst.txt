@@ -1,0 +1,18 @@
+hespas.statistics.statistics
+============================
+
+.. automodule:: hespas.statistics.statistics
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      AggregateStatistic
+      ContainerStatistic
+      IntervalStatistic
+      RatioStatistic
+      Statistic
+      SummingStatistic
+      ValueStatistic
+   

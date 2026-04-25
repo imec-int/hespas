@@ -1,0 +1,20 @@
+﻿hespas.utils
+============
+
+.. automodule:: hespas.utils
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   dict_tools
+   dt_sizes
+   iree
+   logging
+   num_tools
+   op_info
+   serialisable
+   tensor_size

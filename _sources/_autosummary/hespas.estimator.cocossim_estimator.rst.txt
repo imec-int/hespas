@@ -1,0 +1,12 @@
+hespas.estimator.cocossim\_estimator
+====================================
+
+.. automodule:: hespas.estimator.cocossim_estimator
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      CocossimEstimator
+   

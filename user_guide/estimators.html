@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estimators &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ISPASS 2026 Workshop" href="../tutorials/ispass_2026_workshop.html" />
+    <link rel="prev" title="Command Line Tools" href="command_line_tools.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Estimators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#roofline-estimator">Roofline Estimator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#xla-estimator">XLA Estimator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-setup">Docker Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#iree-estimator">IREE Estimator</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/hespas.html">hespas</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Estimators</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="estimators">
+<h1>Estimators<a class="headerlink" href="#estimators" title="Link to this heading"></a></h1>
+<p>Hespas supports multiple compute estimator backends. While the main <code class="docutils literal notranslate"><span class="pre">hespas_chakra_gen</span></code>
+tool selects the estimator from the configuration file, each estimator can also be run
+independently on a StableHLO MLIR file. This is useful for quick experiments, debugging,
+or comparing estimator results without running the full trace generation flow.</p>
+<p>All estimators accept a <code class="docutils literal notranslate"><span class="pre">--config-file</span></code> for loading parameters from a JSON configuration,
+or individual command-line flags to override specific settings. They also support a
+<code class="docutils literal notranslate"><span class="pre">--cache-dir</span></code> for caching results across runs.</p>
+<section id="roofline-estimator">
+<h2>Roofline Estimator<a class="headerlink" href="#roofline-estimator" title="Link to this heading"></a></h2>
+<p>Analytical performance estimator based on the roofline model. Estimates execution time
+from peak FLOPS and memory bandwidth — no hardware required.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">hespas</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">roofline_estimator</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Key options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-file</span> <span class="pre">CONFIG_FILE</span></code> — Configuration file path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--mlir-file</span> <span class="pre">MLIR_FILE</span></code> — MLIR file to estimate</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--peak-flops</span> <span class="pre">PEAK_FLOPS</span></code> — Peak FLOPS/s of the target hardware</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--memory-bandwidth</span> <span class="pre">MEMORY_BANDWIDTH</span></code> — Peak memory bandwidth in bytes/s</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--per-datatype-flops</span> <span class="pre">PER_DATATYPE_FLOPS</span></code> — Peak FLOPS/s dict for each datatype</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--cache-dir</span> <span class="pre">CACHE_DIR</span></code> — Cache directory (default: <code class="docutils literal notranslate"><span class="pre">hespas_cache</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--disable-cache</span></code> — Disable the estimator cache</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--in-memory-only-cache</span></code> — Use in-memory cache only, no files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--num-npus</span></code> — Number of NPUs to simulate</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--error-on-unknown-type</span></code> — Error on unrecognized datatypes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--warn-on-unknown-type</span></code> — Warn on unrecognized datatypes</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">hespas</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">roofline_estimator</span> \
+    <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">file</span> <span class="n">tests</span><span class="o">/</span><span class="n">fixtures</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span><span class="n">config_roofline_a100</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+</section>
+<section id="xla-estimator">
+<h2>XLA Estimator<a class="headerlink" href="#xla-estimator" title="Link to this heading"></a></h2>
+<p>Profiling-based estimator using XLA’s HLO runner. Translates StableHLO to HLO and
+executes on GPU hardware for measured timings. Use this for the most accurate results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">hespas</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">xla_estimator</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Key options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-file</span> <span class="pre">CONFIG_FILE</span></code> — Configuration file path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--mlir-file</span> <span class="pre">MLIR_FILE</span></code> — MLIR file to estimate</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--cache-dir</span> <span class="pre">CACHE_DIR</span></code> — Cache directory (default: <code class="docutils literal notranslate"><span class="pre">hespas_cache</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--disable-cache</span></code> — Disable the estimator cache</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--in-memory-only-cache</span></code> — Use in-memory cache only, no files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--num-npus</span></code> — Number of NPUs to simulate</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--translate</span> <span class="pre">TRANSLATE</span></code> — Translation options</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--hlo-runner-main-path</span> <span class="pre">PATH</span></code> — Path to <code class="docutils literal notranslate"><span class="pre">hlo_runner_main</span></code> binary (default: <code class="docutils literal notranslate"><span class="pre">hlo_runner_main</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--xla-translate-path</span> <span class="pre">PATH</span></code> — Path to <code class="docutils literal notranslate"><span class="pre">xla-translate</span></code> binary (default: <code class="docutils literal notranslate"><span class="pre">xla-translate</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--sample</span></code> — Enable sampling mode</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Requires an NVIDIA GPU with CUDA, and the <code class="docutils literal notranslate"><span class="pre">xla-translate</span></code> and <code class="docutils literal notranslate"><span class="pre">hlo_runner_main</span></code>
+binaries (typically built from XLA source or available in a JAX-Toolbox Docker image).</p>
+</div>
+<section id="docker-setup">
+<h3>Docker Setup<a class="headerlink" href="#docker-setup" title="Link to this heading"></a></h3>
+<p>The easiest way to get all XLA estimator dependencies is via Docker. The provided
+<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> builds an image with <code class="docutils literal notranslate"><span class="pre">xla-translate</span></code>, <code class="docutils literal notranslate"><span class="pre">hlo_runner_main</span></code>, and GPU support
+pre-configured.</p>
+<p><strong>Build the image:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>hespas<span class="w"> </span>.
+</pre></div>
+</div>
+<p><strong>Run with GPU access:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>hespas
+</pre></div>
+</div>
+<p><strong>Mount your local workspace:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workspace<span class="w"> </span>-w<span class="w"> </span>/workspace<span class="w"> </span>hespas
+</pre></div>
+</div>
+</section>
+</section>
+<section id="iree-estimator">
+<h2>IREE Estimator<a class="headerlink" href="#iree-estimator" title="Link to this heading"></a></h2>
+<p>Compilation-and-profiling estimator using the <a class="reference external" href="https://iree.dev/">IREE</a> compiler and runtime.
+Compiles StableHLO modules and benchmarks them on real hardware (CPU or GPU).</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">iree</span></code> optional dependency:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;.[iree]&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">hespas</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">iree_estimator</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Key options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-file</span> <span class="pre">CONFIG_FILE</span></code> — Configuration file path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--mlir-file</span> <span class="pre">MLIR_FILE</span></code> — MLIR file to estimate</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--cache-dir</span> <span class="pre">CACHE_DIR</span></code> — Cache directory (default: <code class="docutils literal notranslate"><span class="pre">hespas_cache</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--disable-cache</span></code> — Disable the estimator cache</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--in-memory-only-cache</span></code> — Use in-memory cache only, no files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--num-npus</span></code> — Number of NPUs to simulate</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Requires <code class="docutils literal notranslate"><span class="pre">iree-compile</span></code> and <code class="docutils literal notranslate"><span class="pre">iree-benchmark-module</span></code> binaries to be available on
+the system PATH.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="command_line_tools.html" class="btn btn-neutral float-left" title="Command Line Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tutorials/ispass_2026_workshop.html" class="btn btn-neutral float-right" title="ISPASS 2026 Workshop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

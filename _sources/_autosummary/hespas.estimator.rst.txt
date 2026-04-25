@@ -1,0 +1,25 @@
+﻿hespas.estimator
+================
+
+.. automodule:: hespas.estimator
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   cache
+   check_available
+   choice
+   cocossim_estimator
+   compute_estimator
+   config_option
+   estimator
+   estimator_meta
+   result
+   roofline_estimator
+   run_config
+   xla_estimator
+   zigzag_onnx_estimator

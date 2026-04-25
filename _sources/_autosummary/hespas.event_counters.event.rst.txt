@@ -1,0 +1,12 @@
+hespas.event\_counters.event
+============================
+
+.. automodule:: hespas.event_counters.event
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      CounterEvent
+   

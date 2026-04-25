@@ -1,0 +1,581 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hespas.statistics.statistics &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hespas.utils" href="hespas.utils.html" />
+    <link rel="prev" title="hespas.statistics" href="hespas.statistics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hespas.html">hespas</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hespas.chakra_gen.html">hespas.chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.estimator.html">hespas.estimator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.event_counters.html">hespas.event_counters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.hespas_chakra_gen.html">hespas.hespas_chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.mlir_parser.html">hespas.mlir_parser</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="hespas.statistics.html">hespas.statistics</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hespas.statistics.statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.statistics.statistics.Statistic"><code class="docutils literal notranslate"><span class="pre">Statistic</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.__init__"><code class="docutils literal notranslate"><span class="pre">Statistic.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.calculate"><code class="docutils literal notranslate"><span class="pre">Statistic.calculate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.sample"><code class="docutils literal notranslate"><span class="pre">Statistic.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.reset"><code class="docutils literal notranslate"><span class="pre">Statistic.reset()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.print"><code class="docutils literal notranslate"><span class="pre">Statistic.print()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.to_dict"><code class="docutils literal notranslate"><span class="pre">Statistic.to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.other_to_dict"><code class="docutils literal notranslate"><span class="pre">Statistic.other_to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.round_or_int_value"><code class="docutils literal notranslate"><span class="pre">Statistic.round_or_int_value()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.unit_print"><code class="docutils literal notranslate"><span class="pre">Statistic.unit_print()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.print_value"><code class="docutils literal notranslate"><span class="pre">Statistic.print_value()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.unwrap_val"><code class="docutils literal notranslate"><span class="pre">Statistic.unwrap_val()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.print_val"><code class="docutils literal notranslate"><span class="pre">Statistic.print_val()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.get_copy_args"><code class="docutils literal notranslate"><span class="pre">Statistic.get_copy_args()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.copy"><code class="docutils literal notranslate"><span class="pre">Statistic.copy()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.to_stats_out"><code class="docutils literal notranslate"><span class="pre">Statistic.to_stats_out()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.other_from_dict"><code class="docutils literal notranslate"><span class="pre">Statistic.other_from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.get_args_from_dict"><code class="docutils literal notranslate"><span class="pre">Statistic.get_args_from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.get_subclasses"><code class="docutils literal notranslate"><span class="pre">Statistic.get_subclasses()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.Statistic.from_dict"><code class="docutils literal notranslate"><span class="pre">Statistic.from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.statistics.statistics.IntervalStatistic"><code class="docutils literal notranslate"><span class="pre">IntervalStatistic</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.IntervalStatistic.__init__"><code class="docutils literal notranslate"><span class="pre">IntervalStatistic.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.IntervalStatistic.sample"><code class="docutils literal notranslate"><span class="pre">IntervalStatistic.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.IntervalStatistic.reset"><code class="docutils literal notranslate"><span class="pre">IntervalStatistic.reset()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.IntervalStatistic.calculate"><code class="docutils literal notranslate"><span class="pre">IntervalStatistic.calculate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.IntervalStatistic.to_dict"><code class="docutils literal notranslate"><span class="pre">IntervalStatistic.to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.IntervalStatistic.get_args_from_dict"><code class="docutils literal notranslate"><span class="pre">IntervalStatistic.get_args_from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.statistics.statistics.RatioStatistic"><code class="docutils literal notranslate"><span class="pre">RatioStatistic</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.RatioStatistic.__init__"><code class="docutils literal notranslate"><span class="pre">RatioStatistic.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.RatioStatistic.sample"><code class="docutils literal notranslate"><span class="pre">RatioStatistic.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.RatioStatistic.reset"><code class="docutils literal notranslate"><span class="pre">RatioStatistic.reset()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.RatioStatistic.calculate"><code class="docutils literal notranslate"><span class="pre">RatioStatistic.calculate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.RatioStatistic.to_dict"><code class="docutils literal notranslate"><span class="pre">RatioStatistic.to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.RatioStatistic.print_value"><code class="docutils literal notranslate"><span class="pre">RatioStatistic.print_value()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.RatioStatistic.get_args_from_dict"><code class="docutils literal notranslate"><span class="pre">RatioStatistic.get_args_from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.statistics.statistics.AggregateStatistic"><code class="docutils literal notranslate"><span class="pre">AggregateStatistic</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.AggregateStatistic.__init__"><code class="docutils literal notranslate"><span class="pre">AggregateStatistic.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.AggregateStatistic.reset"><code class="docutils literal notranslate"><span class="pre">AggregateStatistic.reset()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.AggregateStatistic.calculate"><code class="docutils literal notranslate"><span class="pre">AggregateStatistic.calculate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.AggregateStatistic.to_dict"><code class="docutils literal notranslate"><span class="pre">AggregateStatistic.to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.AggregateStatistic.sample"><code class="docutils literal notranslate"><span class="pre">AggregateStatistic.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.AggregateStatistic.get_args_from_dict"><code class="docutils literal notranslate"><span class="pre">AggregateStatistic.get_args_from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.statistics.statistics.ValueStatistic"><code class="docutils literal notranslate"><span class="pre">ValueStatistic</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ValueStatistic.__init__"><code class="docutils literal notranslate"><span class="pre">ValueStatistic.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ValueStatistic.reset"><code class="docutils literal notranslate"><span class="pre">ValueStatistic.reset()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ValueStatistic.calculate"><code class="docutils literal notranslate"><span class="pre">ValueStatistic.calculate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ValueStatistic.to_dict"><code class="docutils literal notranslate"><span class="pre">ValueStatistic.to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ValueStatistic.sample"><code class="docutils literal notranslate"><span class="pre">ValueStatistic.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ValueStatistic.get_args_from_dict"><code class="docutils literal notranslate"><span class="pre">ValueStatistic.get_args_from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.statistics.statistics.SummingStatistic"><code class="docutils literal notranslate"><span class="pre">SummingStatistic</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.SummingStatistic.sample"><code class="docutils literal notranslate"><span class="pre">SummingStatistic.sample()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.__init__"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.sample"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.add_member"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.add_member()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.add_members"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.add_members()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.has_member"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.has_member()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.get_member"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.get_member()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.calculate"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.calculate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.to_dict"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.items"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.items()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.values"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.values()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.keys"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.print_value"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.print_value()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.to_stats_out"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.to_stats_out()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic.get_args_from_dict"><code class="docutils literal notranslate"><span class="pre">ContainerStatistic.get_args_from_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.utils.html">hespas.utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hespas.html">hespas</a></li>
+          <li class="breadcrumb-item"><a href="hespas.statistics.html">hespas.statistics</a></li>
+      <li class="breadcrumb-item active">hespas.statistics.statistics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-hespas.statistics.statistics">
+<span id="hespas-statistics-statistics"></span><h1>hespas.statistics.statistics<a class="headerlink" href="#module-hespas.statistics.statistics" title="Link to this heading"></a></h1>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.statistics.statistics.AggregateStatistic" title="hespas.statistics.statistics.AggregateStatistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AggregateStatistic</span></code></a>(print_name[, samples])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.statistics.statistics.ContainerStatistic" title="hespas.statistics.statistics.ContainerStatistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ContainerStatistic</span></code></a>(print_name[, sort, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.statistics.statistics.IntervalStatistic" title="hespas.statistics.statistics.IntervalStatistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IntervalStatistic</span></code></a>(print_name[, start, end])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.statistics.statistics.RatioStatistic" title="hespas.statistics.statistics.RatioStatistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RatioStatistic</span></code></a>(print_name[, nom, denom, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.statistics.statistics.Statistic" title="hespas.statistics.statistics.Statistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Statistic</span></code></a>(print_name[, unit, prefix, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.statistics.statistics.SummingStatistic" title="hespas.statistics.statistics.SummingStatistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SummingStatistic</span></code></a>(print_name[, value])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.statistics.statistics.ValueStatistic" title="hespas.statistics.statistics.ValueStatistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ValueStatistic</span></code></a>(print_name[, value])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.statistics.statistics.</span></span><span class="sig-name descname"><span class="pre">Statistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'float'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounding_decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_sampled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalise_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'float'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounding_decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_sampled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalise_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.calculate">
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.calculate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.sample" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.reset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.print">
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.print" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.to_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.other_to_dict">
+<span class="sig-name descname"><span class="pre">other_to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.other_to_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.round_or_int_value">
+<span class="sig-name descname"><span class="pre">round_or_int_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.round_or_int_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.unit_print">
+<span class="sig-name descname"><span class="pre">unit_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.unit_print" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.print_value">
+<span class="sig-name descname"><span class="pre">print_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.print_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.unwrap_val">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">unwrap_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.unwrap_val" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.print_val">
+<span class="sig-name descname"><span class="pre">print_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.print_val" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.get_copy_args">
+<span class="sig-name descname"><span class="pre">get_copy_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.get_copy_args" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.copy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.to_stats_out">
+<span class="sig-name descname"><span class="pre">to_stats_out</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.to_stats_out" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.other_from_dict">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">other_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.other_from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.get_args_from_dict">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_args_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.get_args_from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.get_subclasses">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_subclasses</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.get_subclasses" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.Statistic.from_dict">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.Statistic.from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.IntervalStatistic">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.statistics.statistics.</span></span><span class="sig-name descname"><span class="pre">IntervalStatistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.IntervalStatistic" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hespas.statistics.statistics.Statistic" title="hespas.statistics.statistics.Statistic"><code class="xref py py-class docutils literal notranslate"><span class="pre">Statistic</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.IntervalStatistic.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.IntervalStatistic.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.IntervalStatistic.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.IntervalStatistic.sample" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.IntervalStatistic.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.IntervalStatistic.reset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.IntervalStatistic.calculate">
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.IntervalStatistic.calculate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.IntervalStatistic.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.IntervalStatistic.to_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.IntervalStatistic.get_args_from_dict">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_args_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.IntervalStatistic.get_args_from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.RatioStatistic">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.statistics.statistics.</span></span><span class="sig-name descname"><span class="pre">RatioStatistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_division</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_from_one</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.RatioStatistic" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hespas.statistics.statistics.Statistic" title="hespas.statistics.statistics.Statistic"><code class="xref py py-class docutils literal notranslate"><span class="pre">Statistic</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.RatioStatistic.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_division</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_from_one</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.RatioStatistic.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.RatioStatistic.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.RatioStatistic.sample" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.RatioStatistic.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.RatioStatistic.reset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.RatioStatistic.calculate">
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.RatioStatistic.calculate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.RatioStatistic.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.RatioStatistic.to_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.RatioStatistic.print_value">
+<span class="sig-name descname"><span class="pre">print_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.RatioStatistic.print_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.RatioStatistic.get_args_from_dict">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_args_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.RatioStatistic.get_args_from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.AggregateStatistic">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.statistics.statistics.</span></span><span class="sig-name descname"><span class="pre">AggregateStatistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.AggregateStatistic" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hespas.statistics.statistics.Statistic" title="hespas.statistics.statistics.Statistic"><code class="xref py py-class docutils literal notranslate"><span class="pre">Statistic</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.AggregateStatistic.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.AggregateStatistic.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.AggregateStatistic.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.AggregateStatistic.reset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.AggregateStatistic.calculate">
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.AggregateStatistic.calculate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.AggregateStatistic.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.AggregateStatistic.to_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.AggregateStatistic.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.AggregateStatistic.sample" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.AggregateStatistic.get_args_from_dict">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_args_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.AggregateStatistic.get_args_from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ValueStatistic">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.statistics.statistics.</span></span><span class="sig-name descname"><span class="pre">ValueStatistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ValueStatistic" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hespas.statistics.statistics.Statistic" title="hespas.statistics.statistics.Statistic"><code class="xref py py-class docutils literal notranslate"><span class="pre">Statistic</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ValueStatistic.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ValueStatistic.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ValueStatistic.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ValueStatistic.reset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ValueStatistic.calculate">
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ValueStatistic.calculate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ValueStatistic.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ValueStatistic.to_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ValueStatistic.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ValueStatistic.sample" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ValueStatistic.get_args_from_dict">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_args_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ValueStatistic.get_args_from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.SummingStatistic">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.statistics.statistics.</span></span><span class="sig-name descname"><span class="pre">SummingStatistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.SummingStatistic" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hespas.statistics.statistics.ValueStatistic" title="hespas.statistics.statistics.ValueStatistic"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueStatistic</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.SummingStatistic.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.SummingStatistic.sample" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.statistics.statistics.</span></span><span class="sig-name descname"><span class="pre">ContainerStatistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">justify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_string</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hespas.statistics.statistics.Statistic" title="hespas.statistics.statistics.Statistic"><code class="xref py py-class docutils literal notranslate"><span class="pre">Statistic</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">justify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_string</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.sample" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.add_member">
+<span class="sig-name descname"><span class="pre">add_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_exists</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.add_member" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.add_members">
+<span class="sig-name descname"><span class="pre">add_members</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">members</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.add_members" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.has_member">
+<span class="sig-name descname"><span class="pre">has_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.has_member" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.get_member">
+<span class="sig-name descname"><span class="pre">get_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">submembers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.get_member" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.calculate">
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.calculate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allow_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disallow_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.to_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.items" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.values">
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.values" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.keys" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.print_value">
+<span class="sig-name descname"><span class="pre">print_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.print_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.to_stats_out">
+<span class="sig-name descname"><span class="pre">to_stats_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allow_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disallow_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.to_stats_out" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hespas.statistics.statistics.ContainerStatistic.get_args_from_dict">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_args_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.statistics.statistics.ContainerStatistic.get_args_from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hespas.statistics.html" class="btn btn-neutral float-left" title="hespas.statistics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hespas.utils.html" class="btn btn-neutral float-right" title="hespas.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

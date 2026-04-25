@@ -1,0 +1,389 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hespas.mlir_parser.mlir_common &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hespas.mlir_parser.mlir_module" href="hespas.mlir_parser.mlir_module.html" />
+    <link rel="prev" title="hespas.mlir_parser.mlir_analyzer" href="hespas.mlir_parser.mlir_analyzer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hespas.html">hespas</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hespas.chakra_gen.html">hespas.chakra_gen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.estimator.html">hespas.estimator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.event_counters.html">hespas.event_counters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.hespas_chakra_gen.html">hespas.hespas_chakra_gen</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="hespas.mlir_parser.html">hespas.mlir_parser</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.html#hespas.mlir_parser.parse_and_split_mlir"><code class="docutils literal notranslate"><span class="pre">parse_and_split_mlir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.html#hespas.mlir_parser.MLIRParser"><code class="docutils literal notranslate"><span class="pre">MLIRParser</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.html#hespas.mlir_parser.MLIRModule"><code class="docutils literal notranslate"><span class="pre">MLIRModule</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.mlir_analyzer.html">hespas.mlir_parser.mlir_analyzer</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hespas.mlir_parser.mlir_common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.NodeType"><code class="docutils literal notranslate"><span class="pre">NodeType</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.NodeType.INVALID_NODE"><code class="docutils literal notranslate"><span class="pre">NodeType.INVALID_NODE</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.NodeType.METADATA_NODE"><code class="docutils literal notranslate"><span class="pre">NodeType.METADATA_NODE</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.NodeType.MEM_LOAD_NODE"><code class="docutils literal notranslate"><span class="pre">NodeType.MEM_LOAD_NODE</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.NodeType.MEM_STORE_NODE"><code class="docutils literal notranslate"><span class="pre">NodeType.MEM_STORE_NODE</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.NodeType.COMP_NODE"><code class="docutils literal notranslate"><span class="pre">NodeType.COMP_NODE</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.NodeType.COMM_SEND_NODE"><code class="docutils literal notranslate"><span class="pre">NodeType.COMM_SEND_NODE</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.NodeType.COMM_RECV_NODE"><code class="docutils literal notranslate"><span class="pre">NodeType.COMM_RECV_NODE</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.NodeType.COMM_COLL_NODE"><code class="docutils literal notranslate"><span class="pre">NodeType.COMM_COLL_NODE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.add_classifier"><code class="docutils literal notranslate"><span class="pre">add_classifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_communication_op_str"><code class="docutils literal notranslate"><span class="pre">is_communication_op_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_convolution_op"><code class="docutils literal notranslate"><span class="pre">is_convolution_op()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_dot_general_op"><code class="docutils literal notranslate"><span class="pre">is_dot_general_op()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_communication_op"><code class="docutils literal notranslate"><span class="pre">is_communication_op()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_reduce_op"><code class="docutils literal notranslate"><span class="pre">is_reduce_op()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_return_op"><code class="docutils literal notranslate"><span class="pre">is_return_op()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.get_external_inputs"><code class="docutils literal notranslate"><span class="pre">get_external_inputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.get_external_outputs"><code class="docutils literal notranslate"><span class="pre">get_external_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.get_dot_general_dimensions"><code class="docutils literal notranslate"><span class="pre">get_dot_general_dimensions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.parse_replica_groups"><code class="docutils literal notranslate"><span class="pre">parse_replica_groups()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.parse_replica_from_match"><code class="docutils literal notranslate"><span class="pre">parse_replica_from_match()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.store_private_functions"><code class="docutils literal notranslate"><span class="pre">store_private_functions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.append_private_functions"><code class="docutils literal notranslate"><span class="pre">append_private_functions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hespas.mlir_parser.mlir_common.create_new_module_with_operations"><code class="docutils literal notranslate"><span class="pre">create_new_module_with_operations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.mlir_module.html">hespas.mlir_parser.mlir_module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.mlir_parser.html">hespas.mlir_parser.mlir_parser</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hespas.mlir_parser.mlir_splitter.html">hespas.mlir_parser.mlir_splitter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.statistics.html">hespas.statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hespas.utils.html">hespas.utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hespas.html">hespas</a></li>
+          <li class="breadcrumb-item"><a href="hespas.mlir_parser.html">hespas.mlir_parser</a></li>
+      <li class="breadcrumb-item active">hespas.mlir_parser.mlir_common</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-hespas.mlir_parser.mlir_common">
+<span id="hespas-mlir-parser-mlir-common"></span><h1>hespas.mlir_parser.mlir_common<a class="headerlink" href="#module-hespas.mlir_parser.mlir_common" title="Link to this heading"></a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.add_classifier" title="hespas.mlir_parser.mlir_common.add_classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_classifier</span></code></a>(func)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.append_private_functions" title="hespas.mlir_parser.mlir_common.append_private_functions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">append_private_functions</span></code></a>(private_funcs[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.create_new_module_with_operations" title="hespas.mlir_parser.mlir_common.create_new_module_with_operations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_new_module_with_operations</span></code></a>(block[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.get_dot_general_dimensions" title="hespas.mlir_parser.mlir_common.get_dot_general_dimensions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dot_general_dimensions</span></code></a>(dot_op)</p></td>
+<td><p>Extract batch and contracting dimensions from a stablehlo.dot_general op.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.get_external_inputs" title="hespas.mlir_parser.mlir_common.get_external_inputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_external_inputs</span></code></a>(block)</p></td>
+<td><p>returns a dict of argument: argument types</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.get_external_outputs" title="hespas.mlir_parser.mlir_common.get_external_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_external_outputs</span></code></a>(block)</p></td>
+<td><p>returns a dict of argument_name: argument types</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_communication_op" title="hespas.mlir_parser.mlir_common.is_communication_op"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_communication_op</span></code></a>(op)</p></td>
+<td><p>Check if the operation is a StableHLO communication op.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_communication_op_str" title="hespas.mlir_parser.mlir_common.is_communication_op_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_communication_op_str</span></code></a>(op_name)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_convolution_op" title="hespas.mlir_parser.mlir_common.is_convolution_op"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_convolution_op</span></code></a>(op)</p></td>
+<td><p>Check if the operation is a StableHLO convolution op.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_dot_general_op" title="hespas.mlir_parser.mlir_common.is_dot_general_op"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_dot_general_op</span></code></a>(op)</p></td>
+<td><p>Check if the operation is a StableHLO dot_general op.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_reduce_op" title="hespas.mlir_parser.mlir_common.is_reduce_op"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_reduce_op</span></code></a>(op)</p></td>
+<td><p>Check if the operation is a function return op.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.is_return_op" title="hespas.mlir_parser.mlir_common.is_return_op"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_return_op</span></code></a>(op)</p></td>
+<td><p>Check if the operation is a function return op.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.parse_replica_from_match" title="hespas.mlir_parser.mlir_common.parse_replica_from_match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_replica_from_match</span></code></a>(raw_value, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.parse_replica_groups" title="hespas.mlir_parser.mlir_common.parse_replica_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_replica_groups</span></code></a>(mlir_string)</p></td>
+<td><p>Extract replica_groups from a StableHLO collective operation's MLIR string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.store_private_functions" title="hespas.mlir_parser.mlir_common.store_private_functions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">store_private_functions</span></code></a>(priv_funcs, output_path)</p></td>
+<td><p>Write private functions to a single file for debugging purposes.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hespas.mlir_parser.mlir_common.NodeType" title="hespas.mlir_parser.mlir_common.NodeType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeType</span></code></a>(*values)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.NodeType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">NodeType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.NodeType" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.NodeType.INVALID_NODE">
+<span class="sig-name descname"><span class="pre">INVALID_NODE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.NodeType.INVALID_NODE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.NodeType.METADATA_NODE">
+<span class="sig-name descname"><span class="pre">METADATA_NODE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.NodeType.METADATA_NODE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.NodeType.MEM_LOAD_NODE">
+<span class="sig-name descname"><span class="pre">MEM_LOAD_NODE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.NodeType.MEM_LOAD_NODE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.NodeType.MEM_STORE_NODE">
+<span class="sig-name descname"><span class="pre">MEM_STORE_NODE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.NodeType.MEM_STORE_NODE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.NodeType.COMP_NODE">
+<span class="sig-name descname"><span class="pre">COMP_NODE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.NodeType.COMP_NODE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.NodeType.COMM_SEND_NODE">
+<span class="sig-name descname"><span class="pre">COMM_SEND_NODE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.NodeType.COMM_SEND_NODE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.NodeType.COMM_RECV_NODE">
+<span class="sig-name descname"><span class="pre">COMM_RECV_NODE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.NodeType.COMM_RECV_NODE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.NodeType.COMM_COLL_NODE">
+<span class="sig-name descname"><span class="pre">COMM_COLL_NODE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.NodeType.COMM_COLL_NODE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.add_classifier">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">add_classifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.add_classifier" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.is_communication_op_str">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">is_communication_op_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.is_communication_op_str" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.is_convolution_op">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">is_convolution_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.is_convolution_op" title="Link to this definition"></a></dt>
+<dd><p>Check if the operation is a StableHLO convolution op.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.is_dot_general_op">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">is_dot_general_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.is_dot_general_op" title="Link to this definition"></a></dt>
+<dd><p>Check if the operation is a StableHLO dot_general op.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.is_communication_op">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">is_communication_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.is_communication_op" title="Link to this definition"></a></dt>
+<dd><p>Check if the operation is a StableHLO communication op.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.is_reduce_op">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">is_reduce_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.is_reduce_op" title="Link to this definition"></a></dt>
+<dd><p>Check if the operation is a function return op.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.is_return_op">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">is_return_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.is_return_op" title="Link to this definition"></a></dt>
+<dd><p>Check if the operation is a function return op.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.get_external_inputs">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">get_external_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.get_external_inputs" title="Link to this definition"></a></dt>
+<dd><p>returns a dict of argument: argument types</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.get_external_outputs">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">get_external_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.get_external_outputs" title="Link to this definition"></a></dt>
+<dd><p>returns a dict of argument_name: argument types</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.get_dot_general_dimensions">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">get_dot_general_dimensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dot_op</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.get_dot_general_dimensions" title="Link to this definition"></a></dt>
+<dd><p>Extract batch and contracting dimensions from a stablehlo.dot_general op.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.parse_replica_groups">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">parse_replica_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mlir_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.parse_replica_groups" title="Link to this definition"></a></dt>
+<dd><p>Extract replica_groups from a StableHLO collective operation’s MLIR string.</p>
+<p>Parses the <code class="docutils literal notranslate"><span class="pre">replica_groups</span></code> dense attribute that appears in collective
+operations such as <code class="docutils literal notranslate"><span class="pre">stablehlo.all_reduce</span></code>, <code class="docutils literal notranslate"><span class="pre">stablehlo.all_gather</span></code>, etc.</p>
+<dl class="simple">
+<dt>Supported formats:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dense&lt;[[0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3]]&gt;</span> <span class="pre">:</span> <span class="pre">tensor&lt;1x4xi64&gt;</span></code>  → [[0, 1, 2, 3]]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dense&lt;[[0,</span> <span class="pre">1],</span> <span class="pre">[2,</span> <span class="pre">3]]&gt;</span> <span class="pre">:</span> <span class="pre">tensor&lt;2x2xi64&gt;</span></code> → [[0, 1], [2, 3]]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dense&lt;0&gt;</span> <span class="pre">:</span> <span class="pre">tensor&lt;1x1xi64&gt;</span></code>                → [[0]]</p></li>
+</ul>
+</dd>
+</dl>
+<p>For <code class="docutils literal notranslate"><span class="pre">stablehlo.collective_permute</span></code> which uses <code class="docutils literal notranslate"><span class="pre">source_target_pairs</span></code>
+instead of <code class="docutils literal notranslate"><span class="pre">replica_groups</span></code>, returns None.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>A list of groups, where each group is a list of integer device ids,
+or None if no <code class="docutils literal notranslate"><span class="pre">replica_groups</span></code> attribute is found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.parse_replica_from_match">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">parse_replica_from_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.parse_replica_from_match" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.store_private_functions">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">store_private_functions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">priv_funcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.store_private_functions" title="Link to this definition"></a></dt>
+<dd><p>Write private functions to a single file for debugging purposes.</p>
+<p>This function writes all private functions extracted by the MLIR parser
+to a file named <cite>private_functions.mlir</cite> in the specified output path.
+This is useful for debugging and analyzing the private functions in isolation.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>mlir_parser: An instance of the MLIR parser that provides access to private functions.
+output_path (str): The directory path where the <cite>private_functions.mlir</cite> file will be saved.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: A list of private functions extracted by the MLIR parser.</p>
+</dd>
+<dt>Note:</dt><dd><p>This function must be executed within an MLIR context.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.append_private_functions">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">append_private_functions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">private_funcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.append_private_functions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hespas.mlir_parser.mlir_common.create_new_module_with_operations">
+<span class="sig-prename descclassname"><span class="pre">hespas.mlir_parser.mlir_common.</span></span><span class="sig-name descname"><span class="pre">create_new_module_with_operations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_funcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hespas.mlir_parser.mlir_common.create_new_module_with_operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hespas.mlir_parser.mlir_analyzer.html" class="btn btn-neutral float-left" title="hespas.mlir_parser.mlir_analyzer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hespas.mlir_parser.mlir_module.html" class="btn btn-neutral float-right" title="hespas.mlir_parser.mlir_module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; Hespas 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Command Line Tools" href="command_line_tools.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hespas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/why_hespas.html">Why Hespas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-file-format">Configuration File Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#estimator-configuration">Estimator Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#roofline-estimator">Roofline Estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xla-estimator">XLA Estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iree-estimator">IREE Estimator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-presets">Hardware Presets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-hardware-presets">Using Hardware Presets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-with-astra-sim">Running with ASTRA-sim</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_tools.html">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="estimators.html">Estimators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ispass_2026_workshop.html">ISPASS 2026 Workshop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/hespas.html">hespas</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hespas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
+<p>Hespas uses JSON configuration files to define the input workload, estimator backend,
+and output settings. This page describes the configuration format and the available
+hardware presets in <code class="docutils literal notranslate"><span class="pre">configs/</span></code>.</p>
+<section id="configuration-file-format">
+<h2>Configuration File Format<a class="headerlink" href="#configuration-file-format" title="Link to this heading"></a></h2>
+<p>A configuration file has three top-level fields:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mlir_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;path/to/workload.mlir&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;split_strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;linear_split&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;perf_estimator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;output_dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;output/my_experiment&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">mlir_file</span></code></dt><dd><p>Path to the input StableHLO MLIR workload file.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">split_strategy</span></code></dt><dd><p>How to partition the MLIR program into compute and communication modules.
+Options: <code class="docutils literal notranslate"><span class="pre">&quot;linear_split&quot;</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">&quot;individual_split&quot;</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">output_dir</span></code></dt><dd><p>Directory where all output artifacts are written.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">clean</span></code> <em>(optional)</em></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code>, clean the output directory before generating traces.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">block_lim</span></code> <em>(optional)</em></dt><dd><p>Block size limit for <code class="docutils literal notranslate"><span class="pre">linear_split</span></code> (default: 1024).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> <em>(optional)</em></dt><dd><p>Directory for estimator result caching (default: <code class="docutils literal notranslate"><span class="pre">&lt;output_dir&gt;/cache</span></code>).</p>
+</dd>
+</dl>
+</section>
+<section id="estimator-configuration">
+<h2>Estimator Configuration<a class="headerlink" href="#estimator-configuration" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">perf_estimator</span></code> object selects the estimator backend and its hardware parameters:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;perf_estimator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;estimator_name&gt;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;hardware&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">method</span></code></dt><dd><p>The estimator backend to use:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;roofline&quot;</span></code> — Analytical roofline model (no hardware required)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;xla&quot;</span></code> — XLA HLO runner profiling (recommended for accuracy, requires NVIDIA GPU + CUDA)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;iree&quot;</span></code> — IREE compilation and profiling (requires <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;.[iree]&quot;</span></code>)</p></li>
+</ul>
+<p>Additional estimators are available but require external dependencies that are not
+bundled with Hespas: <code class="docutils literal notranslate"><span class="pre">&quot;zigzag_onnx&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cocossim&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;onnxim&quot;</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">hardware</span></code></dt><dd><p>Estimator-specific hardware parameters. The available fields depend on the chosen
+estimator method.</p>
+</dd>
+</dl>
+<section id="roofline-estimator">
+<h3>Roofline Estimator<a class="headerlink" href="#roofline-estimator" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;perf_estimator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;roofline&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;hardware&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;peak_flops&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">312e12</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;memory_bandwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1935e9</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;num_npus&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;in_memory_only_cache&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">peak_flops</span></code> — Peak FLOPS/s of the target hardware.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">memory_bandwidth</span></code> — Peak memory bandwidth in bytes/s.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_npus</span></code> — Number of devices to generate traces for.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">per_datatype_flops</span></code> <em>(optional)</em> — Dict mapping datatypes to their peak FLOPS/s
+(e.g. <code class="docutils literal notranslate"><span class="pre">{&quot;f16&quot;:</span> <span class="pre">312e12,</span> <span class="pre">&quot;f32&quot;:</span> <span class="pre">19.5e12}</span></code>). Overrides <code class="docutils literal notranslate"><span class="pre">peak_flops</span></code> per datatype.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">in_memory_only_cache</span></code> <em>(optional)</em> — Use in-memory cache only, no files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tdp_W</span></code> <em>(optional)</em> — TDP in watts for rough power estimation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hbm_power_ratio</span></code> <em>(optional)</em> — HBM power ratio for power estimation.</p></li>
+</ul>
+</section>
+<section id="xla-estimator">
+<h3>XLA Estimator<a class="headerlink" href="#xla-estimator" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;perf_estimator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xla&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;hardware&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nvidiagpu&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;num_npus&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;sample&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;translate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;target-backends&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cuda&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;in_memory_only_cache&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> — Hardware type (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;nvidiagpu&quot;</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">translate.target-backends</span></code> — XLA translation target.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample</span></code> — Enable sampling mode.</p></li>
+</ul>
+</section>
+<section id="iree-estimator">
+<h3>IREE Estimator<a class="headerlink" href="#iree-estimator" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;perf_estimator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;iree&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;hardware&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;num_npus&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;sample&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;compile&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local-task&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;target-backends&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;llvm-cpu&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;extra-args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;--iree-llvmcpu-target-cpu=host&quot;</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;extra-runtime-args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;in_memory_only_cache&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">compile.device</span></code> — IREE device to use (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;local-task&quot;</span></code> for CPU, <code class="docutils literal notranslate"><span class="pre">&quot;cuda&quot;</span></code> for GPU).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compile.target-backends</span></code> — IREE compilation target (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;llvm-cpu&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cuda&quot;</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compile.extra-args</span></code> — Additional IREE compiler flags.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compile.extra-runtime-args</span></code> — Additional IREE runtime flags.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample</span></code> — Enable sampling mode.</p></li>
+</ul>
+</section>
+</section>
+<section id="hardware-presets">
+<h2>Hardware Presets<a class="headerlink" href="#hardware-presets" title="Link to this heading"></a></h2>
+<p>Hespas ships with reference hardware configurations in <code class="docutils literal notranslate"><span class="pre">configs/</span></code>:</p>
+<dl>
+<dt>Nodes (<code class="docutils literal notranslate"><span class="pre">configs/nodes/</span></code>)</dt><dd><p>Pre-configured hardware parameters for individual accelerators. Each node directory
+contains estimator-specific configuration files:</p>
+<ul class="simple">
+<li><p>NVIDIA GPUs: A100 (PCIe/SXM, 40/80GB), A40, B200, H100, H200, V100</p></li>
+<li><p>Google TPUs: TPUv3</p></li>
+</ul>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">configs/nodes/A100_SXM_80GB/roofline/config.json</span></code> contains the roofline
+parameters (peak FLOPS per datatype, memory bandwidth) for an A100 SXM 80GB GPU.</p>
+</dd>
+<dt>Systems (<code class="docutils literal notranslate"><span class="pre">configs/systems/</span></code>)</dt><dd><p>Multi-GPU system configurations with <a class="reference external" href="https://astra-sim.github.io/">ASTRA-sim</a>
+network backend files. Each system directory contains:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">astra-sim/system.json</span></code> — ASTRA-sim system configuration (scheduling policy,
+collective implementations)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">astra-sim/network.yml</span></code> — Network topology, bandwidth, latency, and NPU count</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">astra-sim/remote_memory.json</span></code> — Remote memory configuration</p></li>
+</ul>
+<p>These files are consumed by ASTRA-sim when running distributed network simulation
+on the generated Chakra traces.</p>
+</dd>
+</dl>
+<section id="using-hardware-presets">
+<h3>Using Hardware Presets<a class="headerlink" href="#using-hardware-presets" title="Link to this heading"></a></h3>
+<p>The preset configs are designed to be used directly with <code class="docutils literal notranslate"><span class="pre">hespas_chakra_gen</span></code>, with the
+workload and output specified via command-line flags:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hespas_chakra_gen</span> <span class="n">configs</span><span class="o">/</span><span class="n">nodes</span><span class="o">/</span><span class="n">A100_PCIe_40GB</span><span class="o">/</span><span class="n">roofline</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">json</span> \
+    <span class="o">--</span><span class="n">mlir_file</span> <span class="n">tests</span><span class="o">/</span><span class="n">fixtures</span><span class="o">/</span><span class="n">mlir</span><span class="o">/</span><span class="n">jax_example</span><span class="o">.</span><span class="n">mlir</span> \
+    <span class="o">--</span><span class="n">output</span> <span class="n">output</span><span class="o">/</span><span class="n">jax_example_a100</span>
+</pre></div>
+</div>
+</section>
+<section id="running-with-astra-sim">
+<h3>Running with ASTRA-sim<a class="headerlink" href="#running-with-astra-sim" title="Link to this heading"></a></h3>
+<p>After generating Chakra traces with <code class="docutils literal notranslate"><span class="pre">hespas_chakra_gen</span></code>, you can run ASTRA-sim using
+the system configuration files from <code class="docutils literal notranslate"><span class="pre">configs/systems/</span></code>. ASTRA-sim takes the <code class="docutils literal notranslate"><span class="pre">dev.*.et</span></code>
+trace files and the system/network configuration as input to simulate distributed
+communication behavior.</p>
+<p>Refer to the <a class="reference external" href="https://astra-sim.github.io/">ASTRA-sim documentation</a> for installation
+and usage instructions. See also the <code class="docutils literal notranslate"><span class="pre">experiments/</span></code> directory in this repository for
+end-to-end examples.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="command_line_tools.html" class="btn btn-neutral float-right" title="Command Line Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 imec.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
