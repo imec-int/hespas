@@ -623,6 +623,56 @@ reference falls between the two bounds.
 In both cases, exposed communication is small — nearly all communication is
 hidden behind compute for this model size and system configuration.
 
+Modelling custom collective algorithms
+^^^^^^^^^^^^^^^^^^
+
+While ASTRA-sim supports a set of native collective algorithms (Ring, Direct, etc.), 
+one may one to model arbitrary custom algorithms such as synthesized algorithms.
+ASTRA-sim enables uses to model these arbitrary custom algorithms as a graph of p2p messages 
+and provide it as an additional input to the simulator. For details on the concept, 
+please refer to the documentation `here <https://astra-sim.github.io/astra-sim-docs/system-layer/collective-implementation.html>`_.
+
+Clone Collectiveapi repo (one-time):
+
+.. code-block:: bash
+
+   cd experiments/ispass_2026
+   ./build_collapi.sh
+
+Create MSCCL-IR files from algorithms described in MSCCLang:
+
+.. code-block:: bash
+
+   cd .collectiveapi
+   python3 starthere/allgather_ring.py 4 1 1 > \
+    starthere/mscclir.xml
+
+Create Chakra graph from MSCCL-IR files:
+
+.. code-block:: bash
+
+   python chakra_converter/et_converter.py \
+      --input_filename ./starthere/mscclir.xml \
+      --output_filename ./starthere/mscclang_graph
+
+   python chakra_converter/et_converter.py \
+      --input_filename ./starthere/tacos.xml \
+      --output_filename ./starthere/tacos_graph
+
+Finally, run the ASTRA-sim simulation with the custom collective graph. 
+Note how the input `system-configuration` has changed.
+
+.. code-block:: bash
+
+   AstraSim_Analytical_Congestion_Unaware \
+       --workload-configuration="hespas_workloads/A100/llama3-100m/dev" \
+       --system-configuration="configs/systems/A100_SXM_40GB_4GPU/astra-sim/system_custom.json" \
+       --remote-memory-configuration="configs/systems/A100_SXM_40GB_4GPU/astra-sim/remote_memory.json" \
+       --network-configuration="configs/systems/A100_SXM_40GB_4GPU/astra-sim/network.yml" \
+       --comm-group-configuration="hespas_workloads/A100/llama3-100m/comm_group.json"
+
+
+
 Troubleshooting
 ---------------
 
